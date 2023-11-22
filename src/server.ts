@@ -1,38 +1,42 @@
-import express from 'express'
-import mongoose from 'mongoose'
+import express, { Application } from 'express'
 import { config } from 'dotenv'
+import morgan from 'morgan'
+import cors from 'cors'
 
-import usersRouter from './routers/users'
-import productsRouter from './routers/products'
-import ordersRouter from './routers/orders'
-import categoryRouter from './routers/category'
-import apiErrorHandler from './middlewares/errorHandler'
+import { dev } from './config'
+import { connectDB } from './config/db'
+import { createHttpError } from './util/createHTTPError'
+
+
 import myLogger from './middlewares/logger'
+import apiErrorHandler from './middlewares/errorHandler'
+import categoryRouter from './routers/category'
+import productRoutes from './routers/productRoutes'
+
 
 config()
-const app = express()
-const PORT = 5050
-const URL = process.env.ATLAS_URL || "mongodb://127.0.0.1:27017/DB-Ecommerce-baeckendProject"
+
+const app: Application = express()
+const port: number = dev.app.port
 
 app.use(myLogger)
+app.use(cors())
+app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.use('/api/users', usersRouter)
-app.use('/api/orders', ordersRouter)
-app.use('/api/products', productsRouter)
+
 app.use('/api/categories', categoryRouter)
+app.use('/products', productRoutes)
+
 app.use(apiErrorHandler)
 
-mongoose
-  .connect(URL)
-  .then(() => {
-    console.log('Database connected')
-  })
-  .catch((err) => {
-    console.log('MongoDB connection error, ', err)
-  })
+app.use((req, res, next) => {
+  const error = createHttpError(404, 'router not found')
+  next(error)
+})
 
-app.listen(PORT, () => {
-  console.log('Server running http://localhost:' + PORT)
+app.listen(port, () => {
+  console.log(`server is running at http://localhost:${port}`)
+  connectDB()
 })

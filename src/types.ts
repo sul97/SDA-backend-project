@@ -1,16 +1,35 @@
-import { Category } from './models/categorySchema';
+import { Document } from 'mongoose'
 
-export type Product = {
+export interface ProductsType extends Document {
+  _id: string
+  title: string
+  slug?: string
+  price: number
+  description: String
+  quantity: number
+  sold: number
+  shipping?: number
+}
+
+export interface UsersType extends Document {
+  _id: string
+  firstName: string
+  slug?: string
+  lastName: string
+  email: string
+}
+
+export interface Category  extends Document {
     id:string,
     name: string,
-    price: number
-    quantity: number,
-    description: string
-    category:string
 }
-export type Category = {
-    id:string,
-    name: string,
+
+export interface Error {
+  status?: number
+  message?: string
 }
-export type ProductInput = Omit<Product,'id'>;
+
 export type CategoryInput = Omit<Category,'id'>;
+export type ProductsInput = Omit<ProductsType, '_id'>
+export type UsersInput = Omit<UsersType, '_id'>
+
