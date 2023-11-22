@@ -22,6 +22,7 @@ Method: POST, Path: /api/orders, Date: 9/19/2022, Time: 2:42:48 PM
 Method: POST, Path: /api/orders, Date: 9/19/2022, Time: 2:45:24 PM
 Method: GET, Path: /api/users, Date: 9/19/2022, Time: 2:48:09 PM
 Method: GET, Path: /api/users, Date: 9/19/2022, Time: 2:48:24 PM
+
 Method: GET, Path: /, Date: 11/21/2023, Time: 10:34:58 AM
 Method: GET, Path: /api/users, Date: 11/21/2023, Time: 10:35:33 AM
 Method: GET, Path: /users, Date: 11/21/2023, Time: 10:35:45 AM
@@ -46,3 +47,4 @@ Method: GET, Path: /products, Date: 11/21/2023, Time: 4:49:45 PM
 Method: PUT, Path: /products/iphone-15, Date: 11/21/2023, Time: 4:51:22 PM
 Method: DELETE, Path: /products/iphone-15, Date: 11/21/2023, Time: 4:51:37 PM
 Method: DELETE, Path: /products/iphone-155, Date: 11/21/2023, Time: 4:51:46 PM
+

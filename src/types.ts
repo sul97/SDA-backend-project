@@ -19,10 +19,17 @@ export interface UsersType extends Document {
   email: string
 }
 
+export interface Category  extends Document {
+    id:string,
+    name: string,
+}
+
 export interface Error {
   status?: number
   message?: string
 }
 
+export type CategoryInput = Omit<Category,'id'>;
 export type ProductsInput = Omit<ProductsType, '_id'>
 export type UsersInput = Omit<UsersType, '_id'>
+

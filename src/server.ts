@@ -7,13 +7,15 @@ import { dev } from './config'
 import { connectDB } from './config/db'
 import { createHttpError } from './util/createHTTPError'
 
+
 import myLogger from './middlewares/logger'
 import apiErrorHandler from './middlewares/errorHandler'
-
+import categoryRouter from './routers/category'
 import productRoutes from './routers/productRoutes'
 
 
 config()
+
 const app: Application = express()
 const port: number = dev.app.port
 
@@ -24,6 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
+app.use('/api/categories', categoryRouter)
 app.use('/products', productRoutes)
 
 app.use(apiErrorHandler)
