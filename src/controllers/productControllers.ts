@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import { Product } from '../models/productSchema'
-
 import slugify from 'slugify'
+
+import { Product } from '../models/productSchema'
 
 import {
   deleteProduct,
@@ -9,6 +9,7 @@ import {
   findeProductsBySlug,
   updateProduct,
 } from '../services/productService'
+
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
