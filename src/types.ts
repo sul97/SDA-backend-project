@@ -17,6 +17,8 @@ export interface UsersType extends Document {
   slug?: string
   lastName: string
   email: string
+  password: number
+  role: string
 }
 
 export interface Error {
