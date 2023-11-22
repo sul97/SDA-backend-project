@@ -10,7 +10,7 @@ import { createHttpError } from './util/createHTTPError'
 
 import myLogger from './middlewares/logger'
 import apiErrorHandler from './middlewares/errorHandler'
-import categoryRouter from './routers/category'
+import categoryRouter from './routers/categoryRoutes'
 import productRoutes from './routers/productRoutes'
 import userRoutes from './routers/userRoutes'
 

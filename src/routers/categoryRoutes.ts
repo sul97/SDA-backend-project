@@ -6,7 +6,7 @@ import {
     getAllCategories,
     getOneCategory,
     updateOneCategory
-} from '../controllers/category'
+} from '../controllers/categoryControllers'
 const categoryRouter = express.Router()
 
 categoryRouter.get('/', getAllCategories);
