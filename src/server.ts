@@ -1,6 +1,5 @@
 import express, { Application } from 'express'
 import { config } from 'dotenv'
-import morgan from 'morgan'
 
 import usersRouter from './routers/users'
 import productsRouter from './routers/products'
@@ -8,9 +7,8 @@ import ordersRouter from './routers/orders'
 import apiErrorHandler from './middlewares/errorHandler'
 
 import productRoutes from './routers/productRoutes'
+import morgan from 'morgan'
 import myLogger from './middlewares/logger'
-import { createHttpError } from './util/createHTTPError'
-import { connectDB } from './config/db'
 
 
 config()
@@ -35,7 +33,7 @@ app.use((req, res, next) => {
   next(error)
 })
 
-app.listen(PORT, () => {
-  console.log(`server is running at http://localhost:${Port}`)
+app.listen(port, () => {
+  console.log(`server is running at http://localhost:${port}`)
   connectDB()
 })
