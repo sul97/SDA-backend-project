@@ -3,7 +3,7 @@ import slugify from "slugify"
 
 import { Category } from "../models/categorySchema";
 import { CategoryInput } from "../types";
-import createHttpError from "http-errors";
+import {createHttpError} from "../util/createHTTPError"
 
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
