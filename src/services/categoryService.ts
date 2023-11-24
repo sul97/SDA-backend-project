@@ -2,13 +2,13 @@ import slugify from 'slugify'
 
 import { Category } from '../models/categorySchema'
 import { createHttpError } from '../util/createHTTPError'
-import { CategoryInput } from '../types'
+import { CategoryInput, CategoryType } from '../types'
 
 export const findACtegories = async () => {
     const categories = await Category.find()
     return categories
 }
-export const findACtegoryById = async (id:string) => {
+export const findACtegoryById = async (id:string): Promise<CategoryType> => {
     const category = await Category.findById(id);
     if (!category) {
         const error = createHttpError(404, 'Category not found')
@@ -16,16 +16,16 @@ export const findACtegoryById = async (id:string) => {
     }
     return category
 }
-export const findACtegoryBySlug = async (slug: string) => {
-    const category = await Category.find({ slug: slug })
-    if (category.length === 0) {
+export const findACtegoryBySlug = async (slug: string): Promise<CategoryType> => {
+    const category = await Category.findOne({ slug: slug })
+    if (!category) {
         const error = createHttpError(404, 'Category not found')
         throw error
   }
     return category
 }
 
-export const updateCategoryById = async (id: string, updatedCategoryDate: CategoryInput) => {
+export const updateCategoryById = async (id: string, updatedCategoryDate: CategoryInput): Promise<CategoryType> => {
       if (updatedCategoryDate.name) {
             updatedCategoryDate.slug = slugify(updatedCategoryDate.name)
     }
@@ -37,7 +37,7 @@ export const updateCategoryById = async (id: string, updatedCategoryDate: Catego
     return updatedCategory
     
 }
-export const updateCategoryBySlug = async (slug: string, updatedCategoryDate: CategoryInput) => {
+export const updateCategoryBySlug = async (slug: string, updatedCategoryDate: CategoryInput): Promise<CategoryType> => {
     if (updatedCategoryDate.name) {
             updatedCategoryDate.slug = slugify(updatedCategoryDate.name)
     }

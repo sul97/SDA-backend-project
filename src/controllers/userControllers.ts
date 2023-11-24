@@ -5,6 +5,7 @@ import User from '../models/userSchema'
 import slugify from 'slugify'
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
+import { UsersType } from '../types'
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -68,7 +69,7 @@ export const createSingleUser = async (req: Request, res: Response, next: NextFu
     if (userExist) {
       throw new Error('user already exist with this name')
     }
-    const newuser = new User({
+    const newuser:UsersType = new User({
       firstName,
       slug: slugify(firstName),
       lastName,
