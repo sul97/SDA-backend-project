@@ -1,8 +1,6 @@
 import { Schema, model } from 'mongoose'
-import bcrypt from 'bcrypt'
 import { dev } from '../config'
 import { UsersType } from '../types'
-
 
 const userSchema = new Schema<UsersType>(
   {

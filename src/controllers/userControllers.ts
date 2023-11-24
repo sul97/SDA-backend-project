@@ -1,11 +1,13 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
-import User from '../models/userSchema'
 import bcrypt from 'bcrypt'
 import slugify from 'slugify'
+
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
 import { handleSendEmail } from '../helper/sendEmail'
+
+import User from '../models/userSchema'
 
 export const processRegisterUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -70,12 +72,11 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
     })
   } catch (error) {
     if (error instanceof TokenExpiredError || error instanceof JsonWebTokenError) {
-      const errorMessage = error instanceof TokenExpiredError? "expired token":"Invalid token"
+      const errorMessage = error instanceof TokenExpiredError ? 'expired token' : 'Invalid token'
       next(createHttpError(401, errorMessage))
     } else {
       next(error)
     }
-    
   }
 }
 
