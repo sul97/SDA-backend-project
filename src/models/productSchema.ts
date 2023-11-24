@@ -20,16 +20,10 @@ const productSchema = new mongoose.Schema(
       trim: true,
       minlength: [1, 'can not be zero'],
     },
-    category: {
+   category: {
       type: Schema.Types.ObjectId,
-      ref: 'Category',
-      required: true,
-      default: [],
-    },
-    image: {
-      type: String,
-      required: [true, 'Product image is required'],
-      trim: true,
+      ref: 'Categories',
+      required: true
     },
     description: {
       type: String,

@@ -17,13 +17,12 @@ export interface UsersType extends Document {
   slug?: string
   lastName: string
   email: string
-  password: number
-  role: string
 }
 
 export interface Category  extends Document {
-    id:string,
+    _id: string,
     name: string,
+    slug?: string
 }
 
 export interface Error {
@@ -31,7 +30,7 @@ export interface Error {
   message?: string
 }
 
-export type CategoryInput = Omit<Category,'id'>;
+export type CategoryInput = Omit<Category,'_id'>;
 export type ProductsInput = Omit<ProductsType, '_id'>
 export type UsersInput = Omit<UsersType, '_id'>
 
