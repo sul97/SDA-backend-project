@@ -10,21 +10,20 @@ export interface ProductsType extends Document {
   sold: number
   shipping?: number
 }
-
 export interface UsersType extends Document {
-  _id: string
-  firstName: string
-  slug?: string
-  lastName: string
+  name: string
   email: string
-  password: number
-  role: string
+  password: string
+  image: string
+  address: string
+  phone: string
+  isAdmin: boolean
+  isBanned: boolean
 }
-
 export interface Error {
   status?: number
   message?: string
 }
 
 export type ProductsInput = Omit<ProductsType, '_id'>
-export type UsersInput = Omit<UsersType, '_id'>
+//export type UsersInput = Omit<UsersType, '_id'>
