@@ -20,7 +20,11 @@ const productSchema = new mongoose.Schema(
       trim: true,
       minlength: [1, 'can not be zero'],
     },
-    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+   category: {
+      type: Schema.Types.ObjectId,
+      ref: 'Categories',
+      required: true
+    },
     description: {
       type: String,
       required: true,

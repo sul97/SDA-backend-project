@@ -28,13 +28,6 @@ export const findeProductsBySlug = async (slug: string) => {
   return product
 }
 
-// export const createProduct = (newProduct: ProductsInput) => {
-//   const id = new Date().getTime().toString();
-//   const product = { id, ...newProduct };
-//   products.push(product);
-//   return products;
-// };
-
 export const updateProduct = async (slug: string, updatedProductDate: ProductsInput) => {
   if (updatedProductDate.title) {
     updatedProductDate.slug = slugify(updatedProductDate.title)
