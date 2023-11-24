@@ -12,11 +12,14 @@ export interface ProductsType extends Document {
 }
 
 export interface UsersType extends Document {
-  _id: string
-  firstName: string
-  slug?: string
-  lastName: string
+  name: string
   email: string
+  password: string
+  image: string
+  address: string
+  phone: string
+  isAdmin: boolean
+  isBanned: boolean
 }
 
 export interface Category  extends Document {
