@@ -9,8 +9,8 @@ import { createHttpError } from './util/createHTTPError'
 
 
 import myLogger from './middlewares/logger'
-import apiErrorHandler from './middlewares/errorHandler'
-import categoryRouter from './routers/category'
+import {errorHandler} from './middlewares/errorHandler'
+import categoryRouter from './routers/categoryRoutes'
 import productRoutes from './routers/productRoutes'
 
 
@@ -26,10 +26,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-app.use('/api/categories', categoryRouter)
+app.use('/categories', categoryRouter)
 app.use('/products', productRoutes)
 
-app.use(apiErrorHandler)
+app.use(errorHandler)
 
 app.use((req, res, next) => {
   const error = createHttpError(404, 'router not found')
