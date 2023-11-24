@@ -8,7 +8,7 @@ const categorySchema = new Schema({
         minlength: [3, 'Category name must me at least 3 chracters'],
         maxlength: [100,'Category name must be at most 100 chracters']
     },
-    slaug: {
+    slug: {
         type: String,
         unique: true,
         lowercase:true
