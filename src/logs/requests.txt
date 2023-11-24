@@ -122,3 +122,15 @@ Method: POST, Path: /users/register, Date: 11/24/2023, Time: 4:56:13 PM
 Method: POST, Path: /users/register, Date: 11/24/2023, Time: 5:16:35 PM
 Method: POST, Path: /users/register, Date: 11/24/2023, Time: 5:46:16 PM
 Method: POST, Path: /users/register, Date: 11/24/2023, Time: 5:49:28 PM
+Method: POST, Path: /users/register, Date: 11/24/2023, Time: 9:20:39 PM
+Method: POST, Path: /users/process-register, Date: 11/24/2023, Time: 9:20:56 PM
+Method: POST, Path: /users/process-register, Date: 11/24/2023, Time: 9:22:27 PM
+Method: POST, Path: /users/process-register, Date: 11/24/2023, Time: 9:25:47 PM
+Method: POST, Path: /users/process-register, Date: 11/24/2023, Time: 9:39:28 PM
+Method: POST, Path: /users//activate, Date: 11/24/2023, Time: 9:42:12 PM
+Method: POST, Path: /users//activate, Date: 11/24/2023, Time: 9:44:46 PM
+Method: POST, Path: /users//activate, Date: 11/24/2023, Time: 9:47:28 PM
+Method: POST, Path: /users/process-register, Date: 11/24/2023, Time: 10:01:34 PM
+Method: POST, Path: /users//activate, Date: 11/24/2023, Time: 10:02:01 PM
+Method: POST, Path: /users/process-register, Date: 11/24/2023, Time: 10:03:50 PM
+Method: POST, Path: /users//activate, Date: 11/24/2023, Time: 10:04:19 PM
