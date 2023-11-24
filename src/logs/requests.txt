@@ -22,6 +22,7 @@ Method: POST, Path: /api/orders, Date: 9/19/2022, Time: 2:42:48 PM
 Method: POST, Path: /api/orders, Date: 9/19/2022, Time: 2:45:24 PM
 Method: GET, Path: /api/users, Date: 9/19/2022, Time: 2:48:09 PM
 Method: GET, Path: /api/users, Date: 9/19/2022, Time: 2:48:24 PM
+<<<<<<< HEAD
 Method: GET, Path: /categories, Date: 11/23/2023, Time: 10:22:40 PM
 Method: GET, Path: /categories, Date: 11/23/2023, Time: 10:42:47 PM
 Method: POST, Path: /categories, Date: 11/23/2023, Time: 10:43:37 PM
@@ -140,3 +141,31 @@ Method: PUT, Path: /categories/smart-phone, Date: 11/24/2023, Time: 2:22:05 AM
 Method: PUT, Path: /categories/smart-phone, Date: 11/24/2023, Time: 2:22:07 AM
 Method: PUT, Path: /categories/smart-phone, Date: 11/24/2023, Time: 2:24:17 AM
 Method: PUT, Path: /categories/smart-phone, Date: 11/24/2023, Time: 2:24:18 AM
+=======
+
+Method: GET, Path: /, Date: 11/21/2023, Time: 10:34:58 AM
+Method: GET, Path: /api/users, Date: 11/21/2023, Time: 10:35:33 AM
+Method: GET, Path: /users, Date: 11/21/2023, Time: 10:35:45 AM
+Method: GET, Path: /api, Date: 11/21/2023, Time: 10:36:00 AM
+Method: GET, Path: /api/users, Date: 11/21/2023, Time: 10:36:15 AM
+Method: GET, Path: /api/users, Date: 11/21/2023, Time: 10:36:18 AM
+Method: GET, Path: /api/users, Date: 11/21/2023, Time: 10:36:32 AM
+Method: GET, Path: /api/products, Date: 11/21/2023, Time: 10:36:45 AM
+Method: GET, Path: /, Date: 11/21/2023, Time: 11:47:11 AM
+Method: GET, Path: /products, Date: 11/21/2023, Time: 11:47:22 AM
+Method: GET, Path: /users, Date: 11/21/2023, Time: 11:47:37 AM
+Method: GET, Path: /, Date: 11/21/2023, Time: 4:45:14 PM
+Method: GET, Path: /products, Date: 11/21/2023, Time: 4:45:29 PM
+Method: GET, Path: /users, Date: 11/21/2023, Time: 4:45:40 PM
+Method: GET, Path: /products, Date: 11/21/2023, Time: 4:45:49 PM
+Method: GET, Path: /products/iphone-13, Date: 11/21/2023, Time: 4:46:24 PM
+Method: POST, Path: /products, Date: 11/21/2023, Time: 4:46:44 PM
+Method: POST, Path: /products, Date: 11/21/2023, Time: 4:47:44 PM
+Method: POST, Path: /products, Date: 11/21/2023, Time: 4:48:52 PM
+Method: POST, Path: /products, Date: 11/21/2023, Time: 4:49:28 PM
+Method: GET, Path: /products, Date: 11/21/2023, Time: 4:49:45 PM
+Method: PUT, Path: /products/iphone-15, Date: 11/21/2023, Time: 4:51:22 PM
+Method: DELETE, Path: /products/iphone-15, Date: 11/21/2023, Time: 4:51:37 PM
+Method: DELETE, Path: /products/iphone-155, Date: 11/21/2023, Time: 4:51:46 PM
+
+>>>>>>> origin
