@@ -122,3 +122,22 @@ Method: POST, Path: /users/register, Date: 11/24/2023, Time: 4:56:13 PM
 Method: POST, Path: /users/register, Date: 11/24/2023, Time: 5:16:35 PM
 Method: POST, Path: /users/register, Date: 11/24/2023, Time: 5:46:16 PM
 Method: POST, Path: /users/register, Date: 11/24/2023, Time: 5:49:28 PM
+Method: POST, Path: /products, Date: 24/11/2023, Time: 19:53:34
+Method: POST, Path: /products, Date: 24/11/2023, Time: 19:53:58
+Method: POST, Path: /products, Date: 24/11/2023, Time: 19:54:07
+Method: POST, Path: /products, Date: 24/11/2023, Time: 19:55:15
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 19:55:23
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:02:10
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:03:25
+Method: POST, Path: /products, Date: 24/11/2023, Time: 20:07:39
+Method: POST, Path: /products, Date: 24/11/2023, Time: 20:07:46
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:10:30
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:10:34
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:10:45
+Method: POST, Path: /products, Date: 24/11/2023, Time: 20:19:29
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:21:34
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:22:00
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:26:10
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:27:43
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:27:59
+Method: GET, Path: /products/, Date: 24/11/2023, Time: 20:28:21

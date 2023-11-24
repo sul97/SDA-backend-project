@@ -13,8 +13,13 @@ export const findeAllProducts = async (page = 1, limit = 3) => {
   }
 
   const skip = (page - 1) * limit
-  const products = await Product.find().populate('category').skip(skip).limit(limit)
-
+  const products = await Product.find({
+    $and: [{ price: { $gt: 2000 } }, { price: { $lt: 3000 } }],
+  })
+    .populate('category')
+    .skip(skip)
+    .limit(limit)
+    .sort({ price:-1 })
   return { products, totalPage, currentPage: page }
 }
 
