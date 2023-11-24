@@ -22,7 +22,7 @@ export interface UsersType extends Document {
   isBanned: boolean
 }
 
-export interface Category  extends Document {
+export interface CategoryType extends Document {
     _id: string,
     name: string,
     slug?: string
@@ -33,7 +33,7 @@ export interface Error {
   message?: string
 }
 
-export type CategoryInput = Omit<Category,'_id'>;
+export type CategoryInput = Omit<CategoryType,'_id'>;
 export type ProductsInput = Omit<ProductsType, '_id'>
 export type UsersInput = Omit<UsersType, '_id'>
 

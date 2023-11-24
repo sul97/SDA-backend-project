@@ -5,10 +5,11 @@ import { Product } from '../models/productSchema'
 
 import {
   deleteProduct,
-  findeAllProducts,
-  findeProductsBySlug,
+  findAllProducts,
+  findProductsBySlug,
   updateProduct,
 } from '../services/productService'
+import { ProductsType } from '../types'
 
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
@@ -16,7 +17,7 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
     let page = Number(req.query.page)
     const limit = Number(req.query.limit)
 
-    const { products, totalPage, currentPage } = await findeAllProducts(page, limit)
+    const { products, totalPage, currentPage } = await findAllProducts(page, limit)
 
     res.send({
       message: 'return all products',
@@ -38,7 +39,7 @@ export const createSingleProduct = async (req: Request, res: Response, next: Nex
     if (productExist) {
       throw new Error('product already exist with this title')
     }
-    const newProduct = new Product({
+    const newProduct : ProductsType = new Product({
       title: title,
       slug: title && slugify(title),
       price: price,
@@ -60,7 +61,7 @@ export const createSingleProduct = async (req: Request, res: Response, next: Nex
 
 export const getSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const product = await findeProductsBySlug(req.params.slug)
+    const product = await findProductsBySlug(req.params.slug)
     res.send({
       message: 'return single product',
       payload: product,
