@@ -9,10 +9,10 @@ import { createHttpError } from './util/createHTTPError'
 
 
 import myLogger from './middlewares/logger'
-import  { errorHandler } from './middlewares/errorHandler'
+import { errorHandler } from './middlewares/errorHandler'
 import categoryRouter from './routers/categoryRoutes'
 import productRoutes from './routers/productRoutes'
-
+import userRoutes from './routers/userRoutes'
 
 config()
 
@@ -28,6 +28,7 @@ app.use(express.json())
 
 app.use('/categories', categoryRouter)
 app.use('/products', productRoutes)
+app.use('/users', userRoutes)
 
 app.use(errorHandler)
 
@@ -40,3 +41,4 @@ app.listen(port, () => {
   console.log(`server is running at http://localhost:${port}`)
   connectDB()
 })
+
