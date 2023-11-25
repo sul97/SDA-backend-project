@@ -1,8 +1,9 @@
+import slugify from 'slugify'
+
 import { Product } from '../models/productSchema'
-import { Request, Response, NextFunction } from 'express'
 import { createHttpError } from '../util/createHTTPError'
 import { ProductsInput } from '../types'
-import slugify from 'slugify'
+
 
 export const findAllProducts = async (page = 1, limit = 3) => {
   const count = await Product.countDocuments()
@@ -23,6 +24,7 @@ export const findAllProducts = async (page = 1, limit = 3) => {
   return { products, totalPage, currentPage: page }
 }
 
+
 export const findProductsBySlug = async (slug: string): Promise<ProductsInput> => {
   const product = await Product.findOne({ slug: slug })
   if (!product) {
@@ -32,8 +34,29 @@ export const findProductsBySlug = async (slug: string): Promise<ProductsInput> =
   }
   return product
 }
+export const createProduct = async (product: ProductsInput, image: string | undefined) => {
+  const {title}=product
+  const productExist = await Product.exists({ title: title })
+    if (productExist) {
+      throw new Error('product already exist with this title')
+    }
+    const newProduct = new Product({
+      title: product.title,
+      slug: slugify(title),
+      image: image,
+      price :product.price,
+      category:product.category,
+      description:product.description,
+      quantity: product.quantity,
+      sold: product.sold,
+      shipping: product.shipping,
+    })
+    await newProduct.save()
+    return newProduct
+}
 
-export const updateProduct = async (slug: string, updatedProductDate: ProductsInput): Promise<ProductsInput> => {
+export const updateProduct = async (slug: string, updatedProductDate: ProductsInput):Promise<ProductsInput> => {
+
   if (updatedProductDate.title) {
     updatedProductDate.slug = slugify(updatedProductDate.title)
   }
@@ -53,3 +76,4 @@ export const deleteProduct = async (slug: string):Promise<ProductsInput> => {
   }
   return product
 }
+

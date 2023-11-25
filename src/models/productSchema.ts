@@ -21,6 +21,10 @@ const productSchema = new mongoose.Schema(
       trim: true,
       minlength: [1, 'can not be zero'],
     },
+    image: {
+      type: String,
+      required: true,
+    },
    category: {
       type: Schema.Types.ObjectId,
       ref: 'Categories',
