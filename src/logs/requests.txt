@@ -279,6 +279,7 @@ Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:43:23
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:43:49
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:51:12
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:52:09
+
 Method: GET, Path: /products, Date: 11/25/2023, Time: 8:48:44 PM
 Method: POST, Path: /products, Date: 11/25/2023, Time: 8:52:58 PM
 Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 8:54:45 PM
@@ -319,3 +320,25 @@ Method: PUT, Path: /products/iphone808, Date: 11/25/2023, Time: 10:36:51 PM
 Method: GET, Path: /products, Date: 11/25/2023, Time: 10:37:08 PM
 Method: DELETE, Path: /products/iphone808, Date: 11/25/2023, Time: 10:37:19 PM
 Method: GET, Path: /products, Date: 11/25/2023, Time: 10:37:26 PM
+Method: DELETE, Path: /orders/656252c30aa7b71b5b7855b0, Date: 25/11/2023, Time: 23:16:41
+Method: DELETE, Path: /orders/656252c30aa7b71b5b7855b0, Date: 25/11/2023, Time: 23:17:52
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:18:01
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:18:04
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:19:35
+Method: POST, Path: /orders, Date: 25/11/2023, Time: 23:20:05
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:20:11
+Method: DELETE, Path: /orders/656252c30aa7b71b5b7855b0, Date: 25/11/2023, Time: 23:20:25
+Method: DELETE, Path: /orders/656256f5f8c966809a5e31de, Date: 25/11/2023, Time: 23:20:45
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:20:52
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:28:48
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:28:57
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:29:04
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:29:38
+Method: POST, Path: /orders, Date: 25/11/2023, Time: 23:29:50
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:29:55
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:31:51
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:32:09
+Method: POST, Path: /orders, Date: 25/11/2023, Time: 23:37:49
+Method: GET, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:38:17
+Method: PUT, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:45:44
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:45:56
