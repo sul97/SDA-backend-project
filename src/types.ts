@@ -28,6 +28,11 @@ export interface CategoryType extends Document {
     slug?: string
 }
 
+export type EmailDataType = {
+  email: string
+  subjeect: string
+  html: string
+}
 export interface Error {
   status?: number
   message?: string

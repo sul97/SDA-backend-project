@@ -1,8 +1,6 @@
 import { Schema, model } from 'mongoose'
-import bcrypt from 'bcrypt'
 import { dev } from '../config'
 import { UsersType } from '../types'
-
 
 const userSchema = new Schema<UsersType>(
   {
@@ -31,7 +29,7 @@ const userSchema = new Schema<UsersType>(
       required: [true, 'please Enter the password'],
       trim: true,
       minlength: [6, 'password at least 6 character'],
-      set: (password: string) => bcrypt.hashSync(password, 10),
+      // set: (password: string) => bcrypt.hashSync(password, 10),
     },
     image: {
       type: String,
