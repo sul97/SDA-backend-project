@@ -22,6 +22,13 @@ export interface UsersType extends Document {
   isBanned: boolean
 }
 
+export interface OrdersType extends Document {
+  _id: string
+  product:ProductsType['_id']
+  user:UsersType['_id']
+  purchasedAt: string
+}
+
 export interface CategoryType extends Document {
   _id: string
   name: string
@@ -41,3 +48,4 @@ export interface Error {
 export type CategoryInput = Omit<CategoryType, '_id'>
 export type ProductsInput = Omit<ProductsType, '_id'>
 export type UsersInput = Omit<UsersType, '_id'>
+export type OrdersInput = Omit<OrdersType, '_id'>
