@@ -303,3 +303,14 @@ Method: GET, Path: /products/, Date: 25/11/2023, Time: 22:03:34
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:04:28
 Method: POST, Path: /orders, Date: 25/11/2023, Time: 22:06:09
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:06:24
+Method: POST, Path: /orders, Date: 25/11/2023, Time: 22:33:26
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:33:40
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:40:25
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:41:25
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:41:33
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:41:56
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:42:39
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:43:44
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:44:50
+Method: POST, Path: /orders, Date: 25/11/2023, Time: 22:45:24
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:45:31

@@ -7,7 +7,7 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
     let page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 3
     const skip = (page - 1) * limit
-    const orders = await Order.find().skip(skip).limit(limit)
+    const orders = await Order.find().populate('product').populate('user').skip(skip).limit(limit)
     const count = await Order.countDocuments()
     const totalPage = Math.ceil(count / limit)
 
@@ -28,11 +28,11 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
   }
 }
 
-export const createSingleOrder= async (req: Request, res: Response, next: NextFunction) => {
+export const createSingleOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { product, user } = req.body
     console.log(req.body)
-    const newOrder : OrdersInput = new Order({
+    const newOrder: OrdersInput = new Order({
       product: product,
       user: user,
     })
