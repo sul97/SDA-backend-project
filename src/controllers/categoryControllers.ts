@@ -101,10 +101,6 @@ export const updateOneCategoryId = async (req: Request, res: Response, next: Nex
         const id = req.params.id;
         const updatedCategory: CategoryInput = req.body;
         const updated = await updateCategoryById(id, updatedCategory);
-        
-        res.status(200).json({
-            massege: 'The category has been updated successfully ',
-            payload:updated
     res.status(200).json({
       massege: 'The category has been updated successfully ',
       payload: updated,

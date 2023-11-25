@@ -1,7 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import slugify from 'slugify'
-
-import { Product } from '../models/productSchema'
 
 import {
   createProduct,
@@ -10,7 +7,7 @@ import {
   findProductsBySlug,
   updateProduct,
 } from '../services/productService'
-import { ProductsType } from '../types'
+
 
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
@@ -35,28 +32,10 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
 
 export const createSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
     const file = req.file
     const imge = file?.path
     const productData = req.body
     const newProduct = await createProduct(productData, imge)
-
-    const { title, price, category, description, quantity, sold, shipping } = req.body
-    const productExist = await Product.exists({ title: title })
-    if (productExist) {
-      throw new Error('product already exist with this title')
-    }
-    const newProduct : ProductsType = new Product({
-      title: title,
-      slug: title && slugify(title),
-      price: price,
-      category: category,
-      description: description,
-      quantity: quantity,
-      sold: sold,
-      shipping: shipping,
-    })
-    await newProduct.save()
     res.status(201).send({
       message: ' The Product has been created successfully',
       payload: newProduct,
