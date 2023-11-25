@@ -4,7 +4,6 @@ import { Product } from '../models/productSchema'
 import { createHttpError } from '../util/createHTTPError'
 import { ProductsInput } from '../types'
 
-
 export const findAllProducts = async (page = 1, limit = 3) => {
   const count = await Product.countDocuments()
   const totalPage = Math.ceil(count / limit)
@@ -20,10 +19,9 @@ export const findAllProducts = async (page = 1, limit = 3) => {
     .populate('category')
     .skip(skip)
     .limit(limit)
-    .sort({ price:1 })
+    .sort({ price: 1 })
   return { products, totalPage, currentPage: page }
 }
-
 
 export const findProductsBySlug = async (slug: string): Promise<ProductsInput> => {
   const product = await Product.findOne({ slug: slug })
@@ -35,40 +33,51 @@ export const findProductsBySlug = async (slug: string): Promise<ProductsInput> =
   return product
 }
 export const createProduct = async (product: ProductsInput, image: string | undefined) => {
-  const {title}=product
+  const { title } = product
   const productExist = await Product.exists({ title: title })
-    if (productExist) {
-      throw new Error('product already exist with this title')
-    }
-    const newProduct = new Product({
-      title: product.title,
-      slug: slugify(title),
-      image: image,
-      price :product.price,
-      category:product.category,
-      description:product.description,
-      quantity: product.quantity,
-      sold: product.sold,
-      shipping: product.shipping,
-    })
-    await newProduct.save()
-    return newProduct
+  if (productExist) {
+    throw new Error('product already exist with this title')
+  }
+  const newProduct = new Product({
+    title: product.title,
+    slug: slugify(title),
+    image: image,
+    price: product.price,
+    category: product.category,
+    description: product.description,
+    quantity: product.quantity,
+    sold: product.sold,
+    shipping: product.shipping,
+  })
+  await newProduct.save()
+  return newProduct
 }
 
-export const updateProduct = async (slug: string, updatedProductDate: ProductsInput):Promise<ProductsInput> => {
+export const updateProduct = async (
+  slug: string,
+  updatedProductData: ProductsInput,
+  image: string | undefined
+): Promise<ProductsInput> => {
 
-  if (updatedProductDate.title) {
-    updatedProductDate.slug = slugify(updatedProductDate.title)
+  if (updatedProductData.title) {
+    updatedProductData.slug = slugify(updatedProductData.title)
   }
-  const product = await Product.findOneAndUpdate({ slug: slug }, updatedProductDate, { new: true })
-  if (!product) {
-    const error = createHttpError(404, 'product not found')
+
+  if (image) {
+    updatedProductData.image = image
+  }
+
+  const Updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, { new: true })
+
+  if (!Updatedproduct) {
+    const error = createHttpError(404, 'Product not found')
     throw error
   }
-  return product
+
+  return Updatedproduct
 }
 
-export const deleteProduct = async (slug: string):Promise<ProductsInput> => {
+export const deleteProduct = async (slug: string): Promise<ProductsInput> => {
   const product = await Product.findOneAndDelete({ slug: slug })
   if (!product) {
     const error = createHttpError(404, 'product not found')
@@ -76,4 +85,3 @@ export const deleteProduct = async (slug: string):Promise<ProductsInput> => {
   }
   return product
 }
-
