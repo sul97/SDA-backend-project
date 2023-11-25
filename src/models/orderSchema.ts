@@ -1,19 +1,25 @@
-// import mongoose, { Document } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose'
+import { OrdersType } from '../types'
 
-// export type OrderDocument = Document & {
-//   name: string
-//   products: mongoose.Schema.Types.ObjectId[]
-// }
+const orderSchema = new mongoose.Schema(
+  {
+    slug: {
+      type: String,
+      unique: true,
+      lowercase: true,
+    },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: 'products',
+      required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
+    },
+  },
+  { timestamps: true }
+)
 
-// const orderSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//   },
-//   products: {
-//     type: [mongoose.Schema.Types.ObjectId],
-//     ref: 'Product',
-//   },
-// })
-
-// export default mongoose.model<OrderDocument>('Order', orderSchema)
+export const Order = model<OrdersType>('orders', orderSchema)

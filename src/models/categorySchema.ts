@@ -1,5 +1,7 @@
 import { Schema ,model} from "mongoose";
 
+import { CategoryInput } from "../types";
+
 const categorySchema = new Schema({
     name: {
         type: String,
@@ -17,4 +19,6 @@ const categorySchema = new Schema({
     {timestamps:true}
     
 );
-export const Category = model("Categories", categorySchema);
+
+export const Category = model<CategoryInput>("Categories", categorySchema);
+
