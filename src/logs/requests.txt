@@ -268,3 +268,15 @@ Method: POST, Path: /products, Date: 25/11/2023, Time: 17:38:10
 Method: POST, Path: /products, Date: 25/11/2023, Time: 17:39:19
 Method: POST, Path: /products, Date: 25/11/2023, Time: 17:41:15
 Method: POST, Path: /users, Date: 25/11/2023, Time: 18:49:53
+Method: GET, Path: /users, Date: 25/11/2023, Time: 19:36:29
+Method: GET, Path: /users, Date: 25/11/2023, Time: 19:37:09
+Method: GET, Path: /users, Date: 25/11/2023, Time: 19:37:23
+Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:41:29
+Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:42:06
+Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:42:49
+Method: GET, Path: /categories, Date: 25/11/2023, Time: 19:43:03
+Method: GET, Path: /categories, Date: 25/11/2023, Time: 19:43:08
+Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:43:23
+Method: GET, Path: /users, Date: 25/11/2023, Time: 19:43:49
+Method: GET, Path: /users, Date: 25/11/2023, Time: 19:51:12
+Method: GET, Path: /users, Date: 25/11/2023, Time: 19:52:09

@@ -1,5 +1,6 @@
 import slugify from 'slugify'
 import User from '../models/userSchema'
+import { UsersInput } from '../types'
 
 export const findAllUsers = async (page = 1, limit = 3) => {
   const count = await User.countDocuments()
