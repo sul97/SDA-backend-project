@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use('/products', productRoutes)
-app.use('/products', categoryRoutes)
+app.use('/categories', categoryRoutes)
 app.use('/users', userRoutes)
 
 app.use(errorHandler)

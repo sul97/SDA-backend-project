@@ -6,11 +6,11 @@ import slugify from 'slugify'
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
 
-import { UsersType } from '../types'
+import { UsersInput, UsersType } from '../types'
 import { handleSendEmail } from '../helper/sendEmail'
 
-
 import User from '../models/userSchema'
+import { findAllUsers } from '../services/userService'
 
 export const processRegisterUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -85,10 +85,13 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await User.find()
+    let page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 3
+
+    const { users, totalPage, currentPage } = await findAllUsers(page, limit)
     res.send({
       message: 'return all users',
-      payload: users,
+      payload: { users, totalPage, currentPage },
     })
   } catch (error) {
     next(error)
@@ -102,13 +105,14 @@ export const createSingleUser = async (req: Request, res: Response, next: NextFu
     if (userExist) {
       throw new Error('user already exist with this name')
     }
-    const newuser:UsersType = new User({
+    const newuser: UsersType = new User({
       firstName,
       slug: slugify(firstName),
       lastName,
       email,
       password,
     })
+    console.log(newuser)
     await newuser.save()
 
     res.status(201).send({
