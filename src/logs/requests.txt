@@ -314,3 +314,7 @@ Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:43:44
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:44:50
 Method: POST, Path: /orders, Date: 25/11/2023, Time: 22:45:24
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:45:31
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:58:04
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 22:58:06
+Method: POST, Path: /orders, Date: 25/11/2023, Time: 23:02:11
+Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:02:18
