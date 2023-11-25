@@ -1,6 +1,7 @@
 import express from 'express'
 
 import {
+
     createCategory,
     getAllCategories,
     getOneCategoryById,
@@ -9,6 +10,7 @@ import {
     updateOneCategoryBySulg,
     deleteOneCategoryById,
     deleteOneCategoryBySlug
+
 } from '../controllers/categoryControllers'
 const categoryRouter = express.Router()
 
