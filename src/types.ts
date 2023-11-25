@@ -26,17 +26,19 @@ export interface UsersType extends Document {
   isBanned: boolean
 }
 
-export interface OrdersType extends Document {
-  _id: string
-  product:ProductsType['_id']
-  user:UsersType['_id']
-  purchasedAt: string
-}
-
 export interface CategoryType extends Document {
   _id: string
   name: string
   slug?: string
+}
+
+export interface OrdersType extends Document {
+  _id: string
+  product: ProductsType['_id']
+  user: UsersType['_id']
+  purchasedAt: string
+  createdAt: string
+  updatedAt: string
 }
 
 export type EmailDataType = {

@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors'
 import { Order } from '../models/orderSchema'
 import { OrdersInput } from '../types'
 
@@ -24,4 +25,34 @@ export const createOrder = async (order: OrdersInput) => {
   })
   await newOrder.save()
   return newOrder
+}
+
+export const findOrderById = async (id: string): Promise<OrdersInput> => {
+    const order = await Order.findById(id)
+    if (!order) {
+      const error = createHttpError(404, 'Order not found')
+      throw error
+    }
+    return order
+  }
+
+  export const updateOrderById = async (
+    id: string,
+    order: OrdersInput
+  ): Promise<OrdersInput> => {
+    const updatedOrder = await Order.findByIdAndUpdate(id, order, { new: true })
+    if (!updatedOrder) {
+      const error = createHttpError(404, 'Category not found')
+      throw error
+    }
+    return updatedOrder
+  }
+
+export const deleteOrderById = async (id: string) => {
+  const order = await Order.findByIdAndDelete(id)
+  if (!order) {
+    const error = createHttpError(404, 'Order not found')
+    throw error
+  }
+  return order
 }
