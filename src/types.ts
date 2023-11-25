@@ -30,6 +30,8 @@ export interface CategoryType extends Document {
   _id: string
   name: string
   slug?: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface OrdersType extends Document {
