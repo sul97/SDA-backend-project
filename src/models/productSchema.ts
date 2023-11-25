@@ -1,4 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose'
+import { ProductsType } from '../types'
 
 const productSchema = new mongoose.Schema(
   {
@@ -19,6 +20,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       trim: true,
       minlength: [1, 'can not be zero'],
+    },
+    image: {
+      type: String,
+      required: true,
     },
    category: {
       type: Schema.Types.ObjectId,
@@ -51,4 +56,4 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-export const Product = model('products', productSchema)
+export const Product = model<ProductsType>('products', productSchema)

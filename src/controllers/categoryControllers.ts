@@ -6,10 +6,11 @@ import { CategoryInput } from "../types"
 import { createHttpError } from '../util/createHTTPError'
 import {
     createNewCategory,
-    deleteCategory,
-    findACtegories,
-    findACtegoryById,
-    findACtegoryBySlug,
+    deleteCategoryById,
+    deleteCategoryBySlug,
+    findCtegories,
+    findCtegoryById,
+    findCtegoryBySlug,
     updateCategoryById,
     updateCategoryBySlug
 } from "../services/categoryService"
@@ -17,10 +18,14 @@ import {
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const categories = await findACtegories()
+        let page = Number(req.query.page)||1
+        const limit = Number(req.query.limit)||3
+        const {categories ,totalPage, currentPage } = await findCtegories(page, limit)
         res.status(200).json({
             massege: 'Get All Categories ',
-            payload : categories
+            payload: categories,
+            totalPage,
+            currentPage,
    })
   } catch (error) {
       next(error)
@@ -41,9 +46,10 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
 
 export const getOneCategoryById = async (req: Request, res: Response, next: NextFunction) => {
     try {
+         
         const id = req.params.id;
-        const category = await findACtegoryById(id);
-
+        console.log(id)
+        const category = await findCtegoryById(id);
         res.status(200).json({
             massege: 'Get Category',
             payload: category
@@ -55,7 +61,7 @@ export const getOneCategoryById = async (req: Request, res: Response, next: Next
 export const getOneCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const slug =req.params.slug
-        const category = await findACtegoryBySlug(slug)
+        const category = await findCtegoryBySlug(slug)
         //console.log(category)
         res.status(200).json({
             massege: 'Get Category',
@@ -65,10 +71,21 @@ export const getOneCategoryBySlug = async (req: Request, res: Response, next: Ne
         next(error)
     }
 };
-export const deleteOneCategory = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteOneCategoryById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id;
-        await deleteCategory(id);
+        await deleteCategoryById(id);
+        res.status(200).json({
+            massege: 'The category has been deleted successfully',
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+export const deleteOneCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const slug = req.params.slug;
+        await deleteCategoryBySlug(slug);
         res.status(200).json({
             massege: 'The category has been deleted successfully',
         })
