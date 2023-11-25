@@ -280,3 +280,43 @@ Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:43:23
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:43:49
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:51:12
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:52:09
+Method: GET, Path: /products, Date: 11/25/2023, Time: 8:48:44 PM
+Method: POST, Path: /products, Date: 11/25/2023, Time: 8:52:58 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 8:54:45 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:03:10 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:03:49 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:04:39 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:05:32 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:10:00 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:21:15 PM
+Method: PUT, Path: /products/iphone-800, Date: 11/25/2023, Time: 9:21:55 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:23:21 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:24:39 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:25:12 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:26:33 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 9:32:43 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:34:49 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:42:55 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:43:14 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:43:28 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:47:13 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:48:52 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 9:56:41 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 10:04:20 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 10:04:34 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 10:04:52 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 10:06:57 PM
+Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 10:09:52 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 10:10:18 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 10:11:48 PM
+Method: PUT, Path: /products/iphone-7, Date: 11/25/2023, Time: 10:13:14 PM
+Method: PUT, Path: /products/iphone-7, Date: 11/25/2023, Time: 10:13:23 PM
+Method: PUT, Path: /products/iphone-7, Date: 11/25/2023, Time: 10:17:53 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 10:32:37 PM
+Method: PUT, Path: /products/iphone-7, Date: 11/25/2023, Time: 10:32:58 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 10:33:09 PM
+Method: PUT, Path: /products/iphone-7, Date: 11/25/2023, Time: 10:36:25 PM
+Method: PUT, Path: /products/iphone808, Date: 11/25/2023, Time: 10:36:51 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 10:37:08 PM
+Method: DELETE, Path: /products/iphone808, Date: 11/25/2023, Time: 10:37:19 PM
+Method: GET, Path: /products, Date: 11/25/2023, Time: 10:37:26 PM
