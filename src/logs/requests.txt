@@ -306,3 +306,5 @@ Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:21:48
 Method: POST, Path: /users/process-register, Date: 26/11/2023, Time: 00:21:57
 Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:22:24
 Method: POST, Path: /users/activate, Date: 26/11/2023, Time: 00:24:03
+Method: GET, Path: /users/, Date: 26/11/2023, Time: 09:14:05
+Method: GET, Path: /users/, Date: 26/11/2023, Time: 09:15:19
