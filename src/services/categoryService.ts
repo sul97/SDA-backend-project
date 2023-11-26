@@ -4,16 +4,27 @@ import { Category } from '../models/categorySchema'
 import { createHttpError } from '../util/createHTTPError'
 import { CategoryInput, CategoryType } from '../types'
 
-export const findCtegories = async (page = 1, limit = 3) => {
+export const findCategories = async (page = 1, limit = 3 ,search = "") => {
   const count = await Category.countDocuments()
   const totalPage = Math.ceil(count / limit)
+  const searchRegExp = new RegExp('.*' + search + '.*', 'i')
+  const filter = {
+    $or: [
+      { name: { $regex: searchRegExp } },
+      { slug: { $regex: searchRegExp } }
+    ]
+  }
   if (page > totalPage) {
     page = totalPage
   }
   const skip = (page - 1) * limit
 
-  const categories = await Category.find().skip(skip).limit(limit)
-  return { categories, totalPage, currentPage: page }
+  const categories = await Category.find(filter).skip(skip).limit(limit).sort({name:1})
+  return {
+    categories,
+    totalPage,
+    currentPage: page
+  }
 }
 
 export const findCtegoryById = async (id: string): Promise<CategoryInput> => {

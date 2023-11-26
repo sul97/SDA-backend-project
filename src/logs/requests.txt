@@ -369,6 +369,35 @@ Method: POST, Path: /orders, Date: 25/11/2023, Time: 23:37:49
 Method: GET, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:38:17
 Method: PUT, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:45:44
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:45:56
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:52:54 AM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:53:37 AM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:53:39 AM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:53:40 AM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:37:56 PM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:38:44 PM
+Method: GET, Path: /categories, Date: 11/26/2023, Time: 12:40:36 PM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:46:45 PM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:47:06 PM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:47:25 PM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:47:43 PM
+Method: POST, Path: /categories, Date: 11/26/2023, Time: 12:48:07 PM
+Method: GET, Path: /categories, Date: 11/26/2023, Time: 12:48:14 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:48:47 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 12:50:42 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 12:51:25 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 12:54:43 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:55:01 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:57:16 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 12:58:12 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 1:01:11 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 1:03:54 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 1:04:02 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 1:04:13 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 1:04:18 PM
+Method: GET, Path: /categories, Date: 11/26/2023, Time: 1:36:13 PM
+Method: GET, Path: /categories, Date: 11/26/2023, Time: 2:18:34 PM
+Method: GET, Path: /categories, Date: 11/26/2023, Time: 2:19:52 PM
+Method: GET, Path: /categories, Date: 11/26/2023, Time: 2:20:12 PM
 
 Method: GET, Path: /products, Date: 26/11/2023, Time: 10:01:33
 Method: GET, Path: /users, Date: 11/26/2023, Time: 2:10:34 PM
@@ -423,3 +452,4 @@ Method: GET, Path: /users, Date: 11/26/2023, Time: 2:48:08 PM
 Method: PUT, Path: /users/ban/656223db785c37024ecb8ce1, Date: 11/26/2023, Time: 2:48:19 PM
 Method: PUT, Path: /users/ban/656223db785c37024ecb8ce1, Date: 11/26/2023, Time: 2:51:48 PM
 Method: GET, Path: /users, Date: 11/26/2023, Time: 2:51:53 PM
+

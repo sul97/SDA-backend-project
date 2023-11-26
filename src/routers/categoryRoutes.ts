@@ -2,20 +2,23 @@ import express from 'express'
 
 import {
   createCategory,
+  deleteSingleCategoryBySlug,
+  deleteSingleeCategoryById,
   getAllCategories,
-  getOneCategoryBySlug,
-  updateOneCategoryBySulg,
-  deleteOneCategoryBySlug,
+  getSingleCategoryById,
+  getSingleCategoryBySlug,
+  updateSingleCategoryBySulg,
+  updateSingleategoryId
 } from '../controllers/categoryControllers'
 const categoryRoutes = express.Router()
 
 categoryRoutes.get('/', getAllCategories)
-//categoryRouter.get('/:id', getOneCategoryById)
-categoryRoutes.get('/:slug', getOneCategoryBySlug)
+//categoryRoutes.get('/:id', getSingleCategoryById)
+categoryRoutes.get('/:slug', getSingleCategoryBySlug)
 categoryRoutes.post('/', createCategory)
-//categoryRouter.delete('/:id', deleteOneCategoryById)
-categoryRoutes.delete('/:slug', deleteOneCategoryBySlug)
-//categoryRouter.put('/:id', updateOneCategoryId)
-categoryRoutes.put('/:slug', updateOneCategoryBySulg)
+//categoryRoutes.delete('/:id', deleteSingleeCategoryById)
+categoryRoutes.delete('/:slug', deleteSingleCategoryBySlug)
+//categoryRoutes.put('/:id', updateSingleategoryId)
+categoryRoutes.put('/:slug', updateSingleCategoryBySulg)
 
 export default categoryRoutes
