@@ -1,6 +1,6 @@
 import slugify from 'slugify'
 import User from '../models/userSchema'
-import { UsersInput } from '../types'
+import { UsersType } from '../types'
 
 export const findAllUsers = async (page = 1, limit = 3) => {
   const count = await User.countDocuments()
@@ -11,6 +11,6 @@ export const findAllUsers = async (page = 1, limit = 3) => {
   }
 
   const skip = (page - 1) * limit
-  const users = await User.find().skip(skip).limit(limit)
+  const users: UsersType[] = await User.find().skip(skip).limit(limit).sort({ name: 1 })
   return { users, totalPage, currentPage: page }
 }
