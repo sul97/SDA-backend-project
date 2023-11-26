@@ -4,21 +4,24 @@ import {
   getAllUsers,
   getSingleUser,
   deleteSingleUser,
-  createSingleUser,
   updateSingleUser,
-  processRegisterUser,
+  processRegisterUserController,
   activateUser,
+  banUser,
+  unbanUser,
 } from '../controllers/userControllers'
 import { uploadusers } from "../middlewares/uploadFile";
 
 const userRoutes = Router();
 
-userRoutes.post('/process-register', uploadusers.single('image'), processRegisterUser)
+userRoutes.post('/process-register', uploadusers.single('image'), processRegisterUserController)
 userRoutes.post("/activate",activateUser)
 userRoutes.get("/", getAllUsers);
-userRoutes.post("/", createSingleUser);
-userRoutes.get("/:slug", getSingleUser);
-userRoutes.put("/:slug", updateSingleUser);
-userRoutes.delete("/:slug", deleteSingleUser);
+userRoutes.get("/:id", getSingleUser);
+userRoutes.put("/:id", updateSingleUser);
+userRoutes.delete("/:id", deleteSingleUser);
+userRoutes.put('/ban/:id', banUser)
+userRoutes.put('/unban/:id', unbanUser)
+
 
 export default userRoutes;
