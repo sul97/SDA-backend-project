@@ -2,27 +2,27 @@ import slugify from 'slugify'
 
 import { Product } from '../models/productSchema'
 import { createHttpError } from '../util/createHTTPError'
-import { ProductsInput } from '../types'
+import { ProductsInput, ProductsType } from '../types'
 
-export const findAllProducts = async (page = 1, limit = 3) => {
+export const findAllProducts = async (page = 1, limit = 3, search = '') => {
   const count = await Product.countDocuments()
   const totalPage = Math.ceil(count / limit)
-
+  const searchRegExp = new RegExp('.*' + search + '.*', 'i')
+  const filter = {
+    $or: [{ title: { $regex: searchRegExp } }, { description: { $regex: searchRegExp } }],
+  }
   if (page > totalPage) {
     page = totalPage
   }
 
   const skip = (page - 1) * limit
-  const products = await Product.find({
-    $and: [{ price: { $gt: 2000 } }, { price: { $lt: 3000 } }],
-  })
+  const products: ProductsType[] = await Product.find(filter)
     .populate('category')
     .skip(skip)
     .limit(limit)
     .sort({ price: 1 })
   return { products, totalPage, currentPage: page }
 }
-
 export const findProductsBySlug = async (slug: string): Promise<ProductsInput> => {
   const product = await Product.findOne({ slug: slug })
   if (!product) {
@@ -58,7 +58,6 @@ export const updateProduct = async (
   updatedProductData: ProductsInput,
   image: string | undefined
 ): Promise<ProductsInput> => {
-
   if (updatedProductData.title) {
     updatedProductData.slug = slugify(updatedProductData.title)
   }
@@ -67,7 +66,9 @@ export const updateProduct = async (
     updatedProductData.image = image
   }
 
-  const Updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, { new: true })
+  const Updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, {
+    new: true,
+  })
 
   if (!Updatedproduct) {
     const error = createHttpError(404, 'Product not found')
