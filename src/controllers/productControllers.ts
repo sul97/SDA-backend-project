@@ -60,7 +60,7 @@ export const deleteSingleProduct = async (req: Request, res: Response, next: Nex
   try {
     const product = await deleteProduct(req.params.slug)
     res.send({
-      message: ' product is deleted ',
+      message: ' The product has been deleted successfully ',
       payload: product,
     })
   } catch (error) {

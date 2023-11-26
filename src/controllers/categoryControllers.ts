@@ -8,7 +8,7 @@ import {
   createNewCategory,
   deleteCategoryById,
   deleteCategoryBySlug,
-  findCtegories,
+  findCategories,
   findCtegoryById,
   findCtegoryBySlug,
   updateCategoryById,
@@ -17,11 +17,12 @@ import {
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || 3
-    const { categories, totalPage, currentPage } = await findCtegories(page, limit)
+    let page = Number(req.query.page) 
+    const limit = Number(req.query.limit) 
+    const search = req.query.search as string 
+    const { categories, totalPage, currentPage } = await findCategories(page, limit,search)
     res.status(200).json({
-      massege: 'Get All Categories ',
+      massege: 'return all Categorie ',
       payload: categories,
       totalPage,
       currentPage,
@@ -43,35 +44,34 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
   }
 }
 
-export const getOneCategoryById = async (req: Request, res: Response, next: NextFunction) => {
+export const getSingleCategoryById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = req.params.id
+    const {id} = req.params
     console.log(id)
     const category = await findCtegoryById(id)
     res.status(200).json({
-      massege: 'Get Category',
+      massege: 'return single Category',
       payload: category,
     })
   } catch (error) {
     next(error)
   }
 }
-export const getOneCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
+export const getSingleCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const slug = req.params.slug
+    const {slug} = req.params
     const category = await findCtegoryBySlug(slug)
-    //console.log(category)
     res.status(200).json({
-      massege: 'Get Category',
+      massege: 'return single Category',
       payload: category,
     })
   } catch (error) {
     next(error)
   }
 }
-export const deleteOneCategoryById = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteSingleeCategoryById = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = req.params.id
+    const {id} = req.params
     await deleteCategoryById(id)
     res.status(200).json({
       massege: 'The category has been deleted successfully',
@@ -80,9 +80,9 @@ export const deleteOneCategoryById = async (req: Request, res: Response, next: N
     next(error)
   }
 }
-export const deleteOneCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteSingleCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const slug = req.params.slug
+    const {slug} = req.params
     await deleteCategoryBySlug(slug)
     res.status(200).json({
       massege: 'The category has been deleted successfully',
@@ -91,9 +91,9 @@ export const deleteOneCategoryBySlug = async (req: Request, res: Response, next:
     next(error)
   }
 }
-export const updateOneCategoryId = async (req: Request, res: Response, next: NextFunction) => {
+export const updateSingleategoryId = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = req.params.id
+    const {id} = req.params
     const updatedCategory: CategoryInput = req.body
     const updated = await updateCategoryById(id, updatedCategory)
     res.status(200).json({
@@ -104,12 +104,10 @@ export const updateOneCategoryId = async (req: Request, res: Response, next: Nex
     next(error)
   }
 }
-export const updateOneCategoryBySulg = async (req: Request, res: Response, next: NextFunction) => {
+export const updateSingleCategoryBySulg = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const slug = req.params.slug
-    console.log(slug)
+    const {slug} = req.params
     const updatedCategory: CategoryInput = req.body
-    console.log(updatedCategory)
     const updated = await updateCategoryBySlug(slug, updatedCategory)
     res.status(200).json({
       massege: 'The category has been updated successfully ',
