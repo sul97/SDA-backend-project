@@ -279,7 +279,34 @@ Method: POST, Path: /categories, Date: 25/11/2023, Time: 19:43:23
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:43:49
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:51:12
 Method: GET, Path: /users, Date: 25/11/2023, Time: 19:52:09
-
+Method: POST, Path: /users/process-register, Date: 26/11/2023, Time: 00:00:47
+Method: GET, Path: /users//activate, Date: 26/11/2023, Time: 00:01:17
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:02:04
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:02:13
+Method: POST, Path: /users/process-register, Date: 26/11/2023, Time: 00:02:23
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:02:52
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:03:16
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:03:22
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:03:27
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:03:32
+Method: POST, Path: /users/process-register, Date: 26/11/2023, Time: 00:03:57
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:04:22
+Method: GET, Path: /users//activate, Date: 26/11/2023, Time: 00:05:07
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:05:23
+Method: POST, Path: /users/process-register, Date: 26/11/2023, Time: 00:06:09
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:06:35
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:07:29
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:07:35
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:08:02
+Method: POST, Path: /users/activate, Date: 26/11/2023, Time: 00:08:36
+Method: POST, Path: /users/activate, Date: 26/11/2023, Time: 00:14:30
+Method: GET, Path: /users/activate, Date: 26/11/2023, Time: 00:14:35
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:21:48
+Method: POST, Path: /users/process-register, Date: 26/11/2023, Time: 00:21:57
+Method: POST, Path: /users//activate, Date: 26/11/2023, Time: 00:22:24
+Method: POST, Path: /users/activate, Date: 26/11/2023, Time: 00:24:03
+Method: GET, Path: /users/, Date: 26/11/2023, Time: 09:14:05
+Method: GET, Path: /users/, Date: 26/11/2023, Time: 09:15:19
 Method: GET, Path: /products, Date: 11/25/2023, Time: 8:48:44 PM
 Method: POST, Path: /products, Date: 11/25/2023, Time: 8:52:58 PM
 Method: PUT, Path: /products/iphone-8, Date: 11/25/2023, Time: 8:54:45 PM
@@ -342,3 +369,4 @@ Method: POST, Path: /orders, Date: 25/11/2023, Time: 23:37:49
 Method: GET, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:38:17
 Method: PUT, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:45:44
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:45:56
+
