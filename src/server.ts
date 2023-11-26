@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import { config } from 'dotenv'
 import morgan from 'morgan'
 import cors from 'cors'
+import { rateLimit } from 'express-rate-limit';
 
 import { dev } from './config'
 import { connectDB } from './config/db'
@@ -23,6 +24,12 @@ const port: number = dev.app.port
 app.use(myLogger)
 app.use(cors())
 app.use(morgan('dev'))
+const limiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 15 minutes
+    limit: 5, // Limit each IP to 5 requests per `window` (here, per 15 minutes).
+    message: "to many requst in 1 min"
+})
+app.use(limiter)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
