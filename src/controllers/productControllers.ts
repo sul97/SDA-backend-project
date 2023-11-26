@@ -8,6 +8,7 @@ import {
   updateProduct,
 } from '../services/productService'
 import { ProductsInput } from '../types'
+import { deleteImage } from '../helper/deleteImageHelper'
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -59,6 +60,9 @@ export const getSingleProduct = async (req: Request, res: Response, next: NextFu
 export const deleteSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await deleteProduct(req.params.slug)
+    if (product && product.image) {
+      await deleteImage(product.image)
+    }
     res.send({
       message: ' The product has been deleted successfully ',
       payload: product,

@@ -58,7 +58,8 @@ export type UserType = {
   address: string
   phone: string
   image?: string
-  isAdmin: boolean
+  isAdmin?: boolean
+  isBanned?:boolean
 }
 
 export interface Error {

@@ -16,6 +16,8 @@ import {
   unbanUserById,
   updateUser,
 } from '../services/userService'
+import mongoose from 'mongoose'
+import { deleteImage } from '../helper/deleteImageHelper'
 
 export const processRegisterUserController = async (
   req: Request,
@@ -81,7 +83,12 @@ export const banUser = async (req: Request, res: Response, next: NextFunction) =
       message: 'banned the user',
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 
@@ -93,7 +100,12 @@ export const unbanUser = async (req: Request, res: Response, next: NextFunction)
       message: 'unbanned the user',
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 
@@ -122,7 +134,12 @@ export const getSingleUser = async (req: Request, res: Response, next: NextFunct
       payload: user,
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 
@@ -138,18 +155,31 @@ export const updateSingleUser = async (req: Request, res: Response, next: NextFu
       payload: updatedProduct,
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 
 export const deleteSingleUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await deleteUser(req.params.id)
+    const user = await deleteUser(req.params.id)
 
-    res.status(200).send({
-      message: ' user is deleted ',
-    })
+    if (user && user.image) {
+      await deleteImage(user.image)
+    }
+      res.status(200).send({
+        message: ' user is deleted ',
+      })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
