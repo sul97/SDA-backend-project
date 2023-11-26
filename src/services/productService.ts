@@ -66,16 +66,16 @@ export const updateProduct = async (
     updatedProductData.image = image
   }
 
-  const Updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, {
+  const updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, {
     new: true,
   })
 
-  if (!Updatedproduct) {
+  if (!updatedproduct) {
     const error = createHttpError(404, 'Product not found')
     throw error
   }
 
-  return Updatedproduct
+  return updatedproduct
 }
 
 export const deleteProduct = async (slug: string): Promise<ProductsInput> => {
