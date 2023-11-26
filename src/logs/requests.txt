@@ -453,3 +453,21 @@ Method: PUT, Path: /users/ban/656223db785c37024ecb8ce1, Date: 11/26/2023, Time: 
 Method: PUT, Path: /users/ban/656223db785c37024ecb8ce1, Date: 11/26/2023, Time: 2:51:48 PM
 Method: GET, Path: /users, Date: 11/26/2023, Time: 2:51:53 PM
 
+Method: GET, Path: /users, Date: 11/26/2023, Time: 7:11:16 PM
+Method: DELETE, Path: /users/68, Date: 11/26/2023, Time: 7:11:31 PM
+Method: DELETE, Path: /users/6822, Date: 11/26/2023, Time: 7:11:43 PM
+Method: DELETE, Path: /users/6822, Date: 11/26/2023, Time: 7:13:26 PM
+Method: GET, Path: /users, Date: 11/26/2023, Time: 7:14:28 PM
+Method: POST, Path: /users/process-register, Date: 11/26/2023, Time: 7:14:52 PM
+Method: POST, Path: /users/activate, Date: 11/26/2023, Time: 7:15:09 PM
+Method: GET, Path: /users, Date: 11/26/2023, Time: 7:17:55 PM
+Method: DELETE, Path: /users/65636f0d0bd7f53ad58105a6, Date: 11/26/2023, Time: 7:18:16 PM
+Method: GET, Path: /users, Date: 11/26/2023, Time: 7:18:21 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 7:20:42 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 7:20:53 PM
+Method: GET, Path: /products, Date: 11/26/2023, Time: 7:20:59 PM
+Method: DELETE, Path: /products/iphone-8, Date: 11/26/2023, Time: 7:21:29 PM
+Method: POST, Path: /products, Date: 11/26/2023, Time: 7:21:49 PM
+Method: POST, Path: /users/process-register, Date: 11/26/2023, Time: 7:22:09 PM
+Method: POST, Path: /users/activate, Date: 11/26/2023, Time: 7:22:25 PM
+Method: GET, Path: /users, Date: 11/26/2023, Time: 7:22:30 PM
