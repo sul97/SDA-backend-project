@@ -7,6 +7,7 @@ import {
   findProductsBySlug,
   updateProduct,
 } from '../services/productService'
+import { ProductsInput } from '../types'
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -69,10 +70,15 @@ export const deleteSingleProduct = async (req: Request, res: Response, next: Nex
 
 export const updateSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const product = await updateProduct(req.params.slug, req.body)
-    res.send({
-      message: ' product is updated ',
-      payload: product,
+    const { slug } = req.params
+    const updateProductData: ProductsInput = req.body
+     const file = req.file
+     const imge = file?.path
+    
+    const updatedProduct = await updateProduct(slug, updateProductData, imge)
+    res.status(200).send({
+      message: 'The Product has been updated successfully',
+      payload: updatedProduct,
     })
   } catch (error) {
     next(error)

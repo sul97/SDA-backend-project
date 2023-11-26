@@ -5,10 +5,14 @@ export interface ProductsType extends Document {
   title: string
   slug?: string
   price: number
+  image: string
+  category: CategoryType['_id']
   description: String
   quantity: number
   sold: number
   shipping?: number
+  createdAt: string
+  updatedAt: string
 }
 
 export interface UsersType extends Document {
@@ -26,6 +30,17 @@ export interface CategoryType extends Document {
   _id: string
   name: string
   slug?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface OrdersType extends Document {
+  _id: string
+  product: ProductsType['_id']
+  user: UsersType['_id']
+  purchasedAt: string
+  createdAt: string
+  updatedAt: string
 }
 
 export type EmailDataType = {
@@ -41,3 +56,4 @@ export interface Error {
 export type CategoryInput = Omit<CategoryType, '_id'>
 export type ProductsInput = Omit<ProductsType, '_id'>
 export type UsersInput = Omit<UsersType, '_id'>
+export type OrdersInput = Omit<OrdersType, '_id'>
