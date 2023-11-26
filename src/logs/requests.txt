@@ -370,3 +370,4 @@ Method: GET, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:
 Method: PUT, Path: /orders/65625b1d7979a7ad686dcda8, Date: 25/11/2023, Time: 23:45:44
 Method: GET, Path: /orders/, Date: 25/11/2023, Time: 23:45:56
 
+Method: GET, Path: /products, Date: 26/11/2023, Time: 10:01:33
