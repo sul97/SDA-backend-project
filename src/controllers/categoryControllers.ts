@@ -14,6 +14,7 @@ import {
   updateCategoryById,
   updateCategoryBySlug,
 } from '../services/categoryService'
+import mongoose from 'mongoose'
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -54,7 +55,12 @@ export const getSingleCategoryById = async (req: Request, res: Response, next: N
       payload: category,
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 export const getSingleCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
@@ -77,7 +83,12 @@ export const deleteSingleeCategoryById = async (req: Request, res: Response, nex
       massege: 'The category has been deleted successfully',
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 export const deleteSingleCategoryBySlug = async (req: Request, res: Response, next: NextFunction) => {
@@ -101,7 +112,12 @@ export const updateSingleategoryId = async (req: Request, res: Response, next: N
       payload: updated,
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 export const updateSingleCategoryBySulg = async (req: Request, res: Response, next: NextFunction) => {
