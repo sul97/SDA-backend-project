@@ -10,6 +10,7 @@ export const findAllProducts = async (page = 1, limit = 3, search = '') => {
   const searchRegExp = new RegExp('.*' + search + '.*', 'i')
   const filter = {
     $or: [{ title: { $regex: searchRegExp } }, { description: { $regex: searchRegExp } }],
+    $and: [{ price: { $gt: 2000 } }, { price: { $lt: 3000 } }],
   }
   if (page > totalPage) {
     page = totalPage
