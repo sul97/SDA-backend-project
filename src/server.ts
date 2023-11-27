@@ -15,6 +15,7 @@ import productRoutes from './routers/productRoutes'
 import userRoutes from './routers/userRoutes'
 import categoryRoutes from './routers/categoryRoutes'
 import orderRoutes from './routers/orderRoutes'
+import authRoutes from './routers/authRoutes';
 
 config()
 
@@ -37,6 +38,7 @@ app.use('/products', productRoutes)
 app.use('/categories', categoryRoutes)
 app.use('/users', userRoutes)
 app.use('/orders', orderRoutes)
+app.use('/auth', authRoutes)
 
 app.use(errorHandler)
 

@@ -149,7 +149,6 @@ export const updateSingleUser = async (req: Request, res: Response, next: NextFu
     const file = req.file
     const imge = file?.path
 
-    
     const updatedProduct = await updateUser(req.params.id, updateUserData, imge)
     res.status(200).send({
       message: 'The user has been updated successfully',
@@ -172,9 +171,9 @@ export const deleteSingleUser = async (req: Request, res: Response, next: NextFu
     if (user && user.image) {
       await deleteImage(user.image)
     }
-      res.status(200).send({
-        message: ' user is deleted ',
-      })
+    res.status(200).send({
+      message: ' user is deleted ',
+    })
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
       const error = createHttpError(400, 'ID format is not valid')
