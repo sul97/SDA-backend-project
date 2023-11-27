@@ -33,7 +33,7 @@ export const userRegistrationValidator = [
     .notEmpty()
     .withMessage('phone is missing')
     .isLength({ min: 10 })
-    .withMessage('address must have at least 10 characters'),
+    .withMessage('phone must have 10 numbers'),
 ]
 
 export const userLoginValidator = [

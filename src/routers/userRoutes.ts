@@ -13,24 +13,26 @@ import {
 import { uploadUsersimage } from '../middlewares/uploadFile'
 import { userRegistrationValidator } from '../validation/userValidation'
 import { runValidation } from '../validation/runValidation'
+import { isAdmin, isLoggedIn, isLoggedOut } from '../middlewares/auth'
 
 const userRoutes = Router()
 
 userRoutes.post(
   '/process-register',
   uploadUsersimage.single('image'),
+  isLoggedOut,
   userRegistrationValidator,
   runValidation,
   processRegisterUserController
 )
-userRoutes.post('/activate', activateUser)
+userRoutes.post('/activate',isLoggedOut, activateUser)
 
-userRoutes.get('/', getAllUsers)
-userRoutes.get('/:id', getSingleUser)
+userRoutes.get('/', isLoggedIn, isAdmin, getAllUsers)
+userRoutes.get('/:id', isLoggedIn, getSingleUser)
 userRoutes.put('/:id', uploadUsersimage.single('image'), updateSingleUser)
-userRoutes.delete('/:id', deleteSingleUser)
+userRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleUser)
 
-userRoutes.put('/ban/:id', banUser)
-userRoutes.put('/unban/:id', unbanUser)
+userRoutes.put('/ban/:id', isLoggedIn, isAdmin, banUser)
+userRoutes.put('/unban/:id', isLoggedIn, isAdmin, unbanUser)
 
 export default userRoutes

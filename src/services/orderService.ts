@@ -42,7 +42,7 @@ export const findOrderById = async (id: string): Promise<OrdersInput> => {
 export const updateOrderById = async (id: string, order: OrdersInput): Promise<OrdersInput> => {
   const updatedOrder = await Order.findByIdAndUpdate(id, order, { new: true })
   if (!updatedOrder) {
-    const error = createHttpError(404, 'Category not found')
+    const error = createHttpError(404, 'Order not found')
     throw error
   }
   return updatedOrder
