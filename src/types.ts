@@ -15,7 +15,7 @@ export interface ProductsType extends Document {
   updatedAt: string
 }
 
-export interface UsersType extends Document {
+export interface IUsers extends Document {
   name: string
   email: string
   password: string
@@ -24,18 +24,22 @@ export interface UsersType extends Document {
   phone: string
   isAdmin: boolean
   isBanned: boolean
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface CategoryType extends Document {
   _id: string
   name: string
   slug?: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface OrdersType extends Document {
   _id: string
   product: ProductsType['_id']
-  user: UsersType['_id']
+  user: IUsers['_id']
   purchasedAt: string
   createdAt: string
   updatedAt: string
@@ -46,6 +50,18 @@ export type EmailDataType = {
   subjeect: string
   html: string
 }
+
+export type UserType = {
+  name: string
+  email: string
+  password: string
+  address: string
+  phone: string
+  image?: string
+  isAdmin?: boolean
+  isBanned?:boolean
+}
+
 export interface Error {
   status?: number
   message?: string
@@ -53,5 +69,5 @@ export interface Error {
 
 export type CategoryInput = Omit<CategoryType, '_id'>
 export type ProductsInput = Omit<ProductsType, '_id'>
-export type UsersInput = Omit<UsersType, '_id'>
+export type UsersInput = Omit<IUsers, '_id'>
 export type OrdersInput = Omit<OrdersType, '_id'>

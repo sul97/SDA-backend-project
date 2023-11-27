@@ -15,7 +15,7 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
     const limit = Number(req.query.limit) || 3
     const { orders, totalPage, currentPage } = await findAllOrders(page, limit)
     res.send({
-      message: 'get all orders',
+      message: 'return all orders',
       payload: {
         orders,
         totalPage,
@@ -32,7 +32,7 @@ export const createSingleOrder = async (req: Request, res: Response, next: NextF
     const orderData = req.body
     const newOrder = await createOrder(orderData)
     res.status(201).send({
-      message: 'order is created',
+      message: 'The order has been created successfully',
       payload: newOrder,
     })
   } catch (error) {
@@ -41,39 +41,40 @@ export const createSingleOrder = async (req: Request, res: Response, next: NextF
 }
 
 export const getSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const id = req.params.id
-    console.log(id)
-    const category = await findOrderById(id)
-    res.status(200).json({
-      massege: 'return single order',
-      payload: category,
-    })
-  } catch (error) {
-    next(error)
+    try {
+      const id = req.params.id
+      console.log(id)
+      const category = await findOrderById(id)
+      res.status(200).json({
+        massege: 'return single Order',
+        payload: category,
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-}
 
-export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const id = req.params.id
-    const updatedOrder: OrdersInput = req.body
-    const order = await updateOrderById(id, updatedOrder)
-    res.status(200).json({
-      massege: 'The Order has been updated successfully',
-      payload: order,
-    })
-  } catch (error) {
-    next(error)
+    export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id
+      const updatedOrder: OrdersInput = req.body
+      const order = await updateOrderById(id, updatedOrder)
+      res.status(200).json({
+        massege: 'The Order has been updated successfully',
+        payload: order,
+      })
+    } catch (error) {
+      next(error)
+    }
   }
-}
+
 
 export const deleteSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id
     await deleteOrderById(id)
     res.status(200).json({
-      massege: 'Order is deleted',
+      massege: 'The Order has been deleted successfully',
     })
   } catch (error) {
     next(error)

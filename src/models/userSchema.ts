@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose'
 import { dev } from '../config'
-import { UsersType } from '../types'
+import { IUsers } from '../types'
 
-const userSchema = new Schema<UsersType>(
+const userSchema = new Schema<IUsers>(
   {
     name: {
       type: String,
@@ -68,5 +68,5 @@ const userSchema = new Schema<UsersType>(
 )
 
 //name of schema in mongo (products , users)
-const User = model<UsersType>('users', userSchema)
+const User = model<IUsers>('users', userSchema)
 export default User

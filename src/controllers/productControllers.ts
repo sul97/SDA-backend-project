@@ -8,14 +8,15 @@ import {
   updateProduct,
 } from '../services/productService'
 import { ProductsInput } from '../types'
+import { deleteImage } from '../helper/deleteImageHelper'
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 3
-
-    const { products, totalPage, currentPage } = await findAllProducts(page, limit)
-
+    const search = req.query.search as string
+    console.log(search)
+    const { products, totalPage, currentPage } = await findAllProducts(page, limit, search)
     res.send({
       message: 'return all products',
       payload: {
@@ -59,8 +60,11 @@ export const getSingleProduct = async (req: Request, res: Response, next: NextFu
 export const deleteSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await deleteProduct(req.params.slug)
+    if (product && product.image) {
+      await deleteImage(product.image)
+    }
     res.send({
-      message: ' product is deleted ',
+      message: ' The product has been deleted successfully ',
       payload: product,
     })
   } catch (error) {
@@ -72,9 +76,9 @@ export const updateSingleProduct = async (req: Request, res: Response, next: Nex
   try {
     const { slug } = req.params
     const updateProductData: ProductsInput = req.body
-     const file = req.file
-     const imge = file?.path
-    
+    const file = req.file
+    const imge = file?.path
+
     const updatedProduct = await updateProduct(slug, updateProductData, imge)
     res.status(200).send({
       message: 'The Product has been updated successfully',

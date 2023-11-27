@@ -1,54 +1,46 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
-import slugify from 'slugify'
 
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
 
-import { UsersInput, UsersType } from '../types'
-import { handleSendEmail } from '../helper/sendEmail'
+import { UsersInput } from '../types'
 
 import User from '../models/userSchema'
-import { findAllUsers } from '../services/userService'
+import {
+  banUserById,
+  deleteUser,
+  findAllUsers,
+  findUserById,
+  processRegisterUserService,
+  unbanUserById,
+  updateUser,
+} from '../services/userService'
+import mongoose from 'mongoose'
+import { deleteImage } from '../helper/deleteImageHelper'
 
-export const processRegisterUser = async (req: Request, res: Response, next: NextFunction) => {
+export const processRegisterUserController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { name, email, password, address, phone } = req.body
+    const { name, email, password, address, phone, isAdmin } = req.body
     const imagePath = req.file?.path
 
-    const isUserExists = await User.exists({ email: email })
-
-    if (isUserExists) {
-      throw createHttpError(409, 'User already exists')
-    }
-
-    //create token
-    const hashedPassword = await bcrypt.hash(password, 10)
-    const tokenPayload = {
-      name: name,
-      email: email,
-      password: hashedPassword,
-      address: address,
-      phone: phone,
-      image: imagePath,
-    }
-
-    const token = jwt.sign(tokenPayload, dev.app.jwtUserActivationKey, { expiresIn: '10m' })
-
-    //send email hear => token inside the email
-    const emailData = {
-      email: email,
-      subjeect: 'Activate Your Account',
-      html: `<h1>Hello ${name}</h1>
-      <p>Please activate your account by : <a href="http://localhost:5050/users/activate/${token}">click the following link</a></p>`,
-    }
-    //send email
-    await handleSendEmail(emailData)
+    const token = await processRegisterUserService(
+      name,
+      email,
+      password,
+      address,
+      phone,
+      imagePath,
+      isAdmin
+    )
 
     res.status(200).json({
-      message: 'check your Email to activate your account',
-      token: token,
+      message: 'Check your email to activate your account',
+      token,
     })
   } catch (error) {
     next(error)
@@ -83,13 +75,48 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
   }
 }
 
+export const banUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await banUserById(req.params.id)
+
+    res.status(200).send({
+      message: 'banned the user',
+    })
+  } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
+  }
+}
+
+export const unbanUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await unbanUserById(req.params.id)
+
+    res.status(200).send({
+      message: 'unbanned the user',
+    })
+  } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
+  }
+}
+
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 3
+    const search = req.query.search as string
 
-    const { users, totalPage, currentPage } = await findAllUsers(page, limit)
-    res.send({
+    const { users, totalPage, currentPage } = await findAllUsers(page, limit, search)
+    res.status(200).send({
       message: 'return all users',
       payload: { users, totalPage, currentPage },
     })
@@ -98,77 +125,61 @@ export const getAllUsers = async (req: Request, res: Response, next: NextFunctio
   }
 }
 
-export const createSingleUser = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { firstName, lastName, email, password } = req.body
-    const userExist = await User.exists({ firstName: firstName })
-    if (userExist) {
-      throw new Error('user already exist with this name')
-    }
-    const newuser: UsersType = new User({
-      firstName,
-      slug: slugify(firstName),
-      lastName,
-      email,
-      password,
-    })
-    console.log(newuser)
-    await newuser.save()
-
-    res.status(201).send({
-      message: ' user is created ',
-      payload: newuser,
-    })
-  } catch (error) {
-    next(error)
-  }
-}
-
 export const getSingleUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await User.find({ slug: req.params.slug })
-    if (user.length === 0) {
-      throw new Error('user not found ')
-    }
-    res.send({
+    const user = await findUserById(req.params.id)
+
+    res.status(200).send({
       message: 'return single user',
       payload: user,
     })
   } catch (error) {
-    next(error)
-  }
-}
-
-export const deleteSingleUser = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const response = await User.findOneAndDelete({ slug: req.params.slug })
-
-    if (!response) {
-      throw new Error('user not found ')
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
     }
-    res.send({
-      message: ' user is deleted ',
-    })
-  } catch (error) {
-    next(error)
   }
 }
 
 export const updateSingleUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.body.firstName) {
-      req.body.slug = slugify(req.body.firstName)
-    }
-    const user = await User.findOneAndUpdate({ slug: req.params.slug }, req.body, { new: true })
+    const updateUserData: UsersInput = req.body
+    const file = req.file
+    const imge = file?.path
 
-    if (!user) {
-      throw new Error('user not found')
-    }
-    res.send({
-      message: ' user is updated ',
-      payload: user,
+    const updatedProduct = await updateUser(req.params.id, updateUserData, imge)
+    res.status(200).send({
+      message: 'The user has been updated successfully',
+      payload: updatedProduct,
     })
   } catch (error) {
-    next(error)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
+  }
+}
+
+export const deleteSingleUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await deleteUser(req.params.id)
+
+    if (user && user.image) {
+      await deleteImage(user.image)
+    }
+      res.status(200).send({
+        message: ' user is deleted ',
+      })
+  } catch (error) {
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'ID format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
