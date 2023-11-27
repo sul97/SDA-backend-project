@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router } from 'express'
 
 import {
   getAllUsers,
@@ -10,18 +10,27 @@ import {
   banUser,
   unbanUser,
 } from '../controllers/userControllers'
-import { uploadusers } from "../middlewares/uploadFile";
+import { uploadUsersimage } from '../middlewares/uploadFile'
+import { userRegistrationValidator } from '../validation/userValidation'
+import { runValidation } from '../validation/runValidation'
 
-const userRoutes = Router();
+const userRoutes = Router()
 
-userRoutes.post('/process-register', uploadusers.single('image'), processRegisterUserController)
-userRoutes.post("/activate",activateUser)
-userRoutes.get("/", getAllUsers);
-userRoutes.get("/:id", getSingleUser);
-userRoutes.put("/:id", updateSingleUser);
-userRoutes.delete("/:id", deleteSingleUser);
+userRoutes.post(
+  '/process-register',
+  uploadUsersimage.single('image'),
+  userRegistrationValidator,
+  runValidation,
+  processRegisterUserController
+)
+userRoutes.post('/activate', activateUser)
+
+userRoutes.get('/', getAllUsers)
+userRoutes.get('/:id', getSingleUser)
+userRoutes.put('/:id', uploadUsersimage.single('image'), updateSingleUser)
+userRoutes.delete('/:id', deleteSingleUser)
+
 userRoutes.put('/ban/:id', banUser)
 userRoutes.put('/unban/:id', unbanUser)
 
-
-export default userRoutes;
+export default userRoutes

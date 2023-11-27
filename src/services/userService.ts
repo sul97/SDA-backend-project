@@ -1,12 +1,11 @@
 import bcrypt from 'bcrypt'
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
-import { dev } from '../config'
 import { handleSendEmail } from '../helper/sendEmail'
 import { IUsers, UserType, UsersInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
 
 import User from '../models/userSchema'
+import { generateJwtToken } from '../util/generateJwtToken'
 
 export const processRegisterUserService = async (
   name: string,
@@ -15,8 +14,7 @@ export const processRegisterUserService = async (
   address: string,
   phone: string,
   imagePath: string | undefined,
-  isAdmin: boolean,
-  
+  isAdmin: boolean
 ): Promise<string> => {
   const isUserExists = await User.exists({ email })
 
@@ -37,7 +35,9 @@ export const processRegisterUserService = async (
   if (imagePath) {
     tokenPayload.image = imagePath
   }
-  const token = jwt.sign(tokenPayload, dev.app.jwtUserActivationKey, { expiresIn: '10m' })
+
+  const token = generateJwtToken(tokenPayload)
+
   //send email hear => token inside the email
   const emailData = {
     email: email,
@@ -90,7 +90,6 @@ export const findUserById = async (id: string): Promise<IUsers> => {
 }
 
 export const banUserById = async (id: string) => {
-  
   const user = await User.findByIdAndUpdate(id, { isBanned: true })
   if (!user) {
     //create http error //status 404
@@ -100,7 +99,6 @@ export const banUserById = async (id: string) => {
 }
 
 export const unbanUserById = async (id: string) => {
- 
   const user = await User.findByIdAndUpdate(id, { isBanned: false })
   if (!user) {
     //create http error //status 404
@@ -127,7 +125,7 @@ export const updateUser = async (
   })
 
   if (!updateduser) {
-    const error = createHttpError(404, 'Product not found')
+    const error = createHttpError(404, 'User not found')
     throw error
   }
 
@@ -135,10 +133,10 @@ export const updateUser = async (
 }
 
 export const deleteUser = async (id: string): Promise<UsersInput> => {
-  const product = await User.findByIdAndDelete(id)
-  if (!product) {
-    const error = createHttpError(404, 'product not found')
+  const user = await User.findByIdAndDelete(id)
+  if (!user) {
+    const error = createHttpError(404, 'User not found')
     throw error
   }
-  return product
+  return user
 }
