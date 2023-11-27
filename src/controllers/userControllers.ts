@@ -149,6 +149,7 @@ export const updateSingleUser = async (req: Request, res: Response, next: NextFu
     const file = req.file
     const imge = file?.path
 
+    
     const updatedProduct = await updateUser(req.params.id, updateUserData, imge)
     res.status(200).send({
       message: 'The user has been updated successfully',
