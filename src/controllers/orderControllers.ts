@@ -1,7 +1,13 @@
 import { NextFunction, Request, Response } from 'express'
-import { Order } from '../models/orderSchema'
+
 import { OrdersInput } from '../types'
-import { createOrder, deleteOrderById, findAllOrders, findOrderById, updateOrderById } from '../services/orderService'
+import {
+  createOrder,
+  deleteOrderById,
+  findAllOrders,
+  findOrderById,
+  updateOrderById,
+} from '../services/orderService'
 
 export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -34,7 +40,6 @@ export const createSingleOrder = async (req: Request, res: Response, next: NextF
   }
 }
 
-
 export const getSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id
@@ -49,7 +54,7 @@ export const getSingleOrderById = async (req: Request, res: Response, next: Next
     }
   }
 
-  export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
+    export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id
       const updatedOrder: OrdersInput = req.body
@@ -62,6 +67,7 @@ export const getSingleOrderById = async (req: Request, res: Response, next: Next
       next(error)
     }
   }
+
 
 export const deleteSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
   try {
