@@ -1,4 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose'
+
 import { OrdersType } from '../types'
 
 const orderSchema = new mongoose.Schema(
@@ -8,11 +9,11 @@ const orderSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
-    product: {
+    product: [{
       type: Schema.Types.ObjectId,
       ref: 'products',
       required: true,
-    },
+    }],
     user: {
       type: Schema.Types.ObjectId,
       ref: 'users',

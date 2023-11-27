@@ -1,7 +1,13 @@
 import { NextFunction, Request, Response } from 'express'
-import { Order } from '../models/orderSchema'
+
 import { OrdersInput } from '../types'
-import { createOrder, deleteOrderById, findAllOrders, findOrderById, updateOrderById } from '../services/orderService'
+import {
+  createOrder,
+  deleteOrderById,
+  findAllOrders,
+  findOrderById,
+  updateOrderById,
+} from '../services/orderService'
 
 export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -34,34 +40,33 @@ export const createSingleOrder = async (req: Request, res: Response, next: NextF
   }
 }
 
-
-export const getSingleCategoryById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id
-      console.log(id)
-      const category = await findOrderById(id)
-      res.status(200).json({
-        massege: 'return single product',
-        payload: category,
-      })
-    } catch (error) {
-      next(error)
-    }
+export const getSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = req.params.id
+    console.log(id)
+    const category = await findOrderById(id)
+    res.status(200).json({
+      massege: 'return single order',
+      payload: category,
+    })
+  } catch (error) {
+    next(error)
   }
+}
 
-  export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id
-      const updatedOrder: OrdersInput = req.body
-      const order = await updateOrderById(id, updatedOrder)
-      res.status(200).json({
-        massege: 'The Product has been updated successfully',
-        payload: order,
-      })
-    } catch (error) {
-      next(error)
-    }
+export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = req.params.id
+    const updatedOrder: OrdersInput = req.body
+    const order = await updateOrderById(id, updatedOrder)
+    res.status(200).json({
+      massege: 'The Order has been updated successfully',
+      payload: order,
+    })
+  } catch (error) {
+    next(error)
   }
+}
 
 export const deleteSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
   try {
