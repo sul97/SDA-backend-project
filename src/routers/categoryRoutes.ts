@@ -10,7 +10,7 @@ import {
   updateSingleCategoryBySulg,
   updateSingleategoryId,
 } from '../controllers/categoryControllers'
-import { createCategoryValidation, updateCategoryValidation } from '../validation/categoryVlidation'
+import { createCategoryValidation  } from '../validation/categoryVlidation'
 import { runValidation } from '../validation/runValidation'
 import { isAdmin, isLoggedIn } from '../middlewares/auth'
 
@@ -34,9 +34,10 @@ categoryRoutes.put(
   '/:slug',
   isLoggedIn,
   isAdmin,
-  updateCategoryValidation,
+  createCategoryValidation,
   runValidation,
   updateSingleCategoryBySulg
 )
+
 
 export default categoryRoutes
