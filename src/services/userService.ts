@@ -3,9 +3,10 @@ import bcrypt from 'bcrypt'
 import { handleSendEmail } from '../helper/sendEmail'
 import { IUsers, UserType, UsersInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
+import { generateJwtToken } from '../util/generateJwtToken'
 
 import User from '../models/userSchema'
-import { generateJwtToken } from '../util/generateJwtToken'
+
 
 export const processRegisterUserService = async (
   name: string,
@@ -55,14 +56,18 @@ export const findAllUsers = async (page = 1, limit = 3, search = '') => {
   const count = await User.countDocuments()
   const totalPage = Math.ceil(count / limit)
 
-  const searchRegExp = new RegExp('.*' + search + '.*')
-  const filter = {
-    isAdmin: { $ne: true }, //return only user
-    $or: [
-      { name: { $regex: searchRegExp } },
-      { email: { $regex: searchRegExp } },
-      { phone: { $regex: searchRegExp } },
-    ],
+  let filter = {}
+  if (search) {
+    const searchRegExp = new RegExp('.*' + search + '.*', 'i')
+
+    filter = {
+      isAdmin: { $ne: true },
+      $or: [
+        { name: { $regex: searchRegExp } },
+        { email: { $regex: searchRegExp } },
+        { phone: { $regex: searchRegExp } },
+      ],
+    }
   }
   const options = { password: 0, __v: 0 }
 
