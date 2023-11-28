@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
+import mongoose from 'mongoose'
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
 
 import { UsersInput } from '../types'
+import { deleteImage } from '../helper/deleteImageHelper'
 
 import User from '../models/userSchema'
 import {
@@ -16,8 +18,8 @@ import {
   unbanUserById,
   updateUser,
 } from '../services/userService'
-import mongoose from 'mongoose'
-import { deleteImage } from '../helper/deleteImageHelper'
+
+
 
 export const processRegisterUserController = async (
   req: Request,
@@ -171,9 +173,9 @@ export const deleteSingleUser = async (req: Request, res: Response, next: NextFu
     if (user && user.image) {
       await deleteImage(user.image)
     }
-      res.status(200).send({
-        message: ' user is deleted ',
-      })
+    res.status(200).send({
+      message: ' user is deleted ',
+    })
   } catch (error) {
     if (error instanceof mongoose.Error.CastError) {
       const error = createHttpError(400, 'ID format is not valid')

@@ -29,7 +29,6 @@ const userSchema = new Schema<IUsers>(
       required: [true, 'please Enter the password'],
       trim: true,
       minlength: [6, 'password at least 6 character'],
-      // set: (password: string) => bcrypt.hashSync(password, 10),
     },
     image: {
       type: String,

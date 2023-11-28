@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt'
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
-import { dev } from '../config'
 import { handleSendEmail } from '../helper/sendEmail'
 import { IUsers, UserType, UsersInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
+import { generateJwtToken } from '../util/generateJwtToken'
 
 import User from '../models/userSchema'
+
 
 export const processRegisterUserService = async (
   name: string,
@@ -15,8 +15,7 @@ export const processRegisterUserService = async (
   address: string,
   phone: string,
   imagePath: string | undefined,
-  isAdmin: boolean,
-  
+  isAdmin: boolean
 ): Promise<string> => {
   const isUserExists = await User.exists({ email })
 
@@ -37,7 +36,9 @@ export const processRegisterUserService = async (
   if (imagePath) {
     tokenPayload.image = imagePath
   }
-  const token = jwt.sign(tokenPayload, dev.app.jwtUserActivationKey, { expiresIn: '10m' })
+
+  const token = generateJwtToken(tokenPayload)
+
   //send email hear => token inside the email
   const emailData = {
     email: email,
@@ -55,14 +56,18 @@ export const findAllUsers = async (page = 1, limit = 3, search = '') => {
   const count = await User.countDocuments()
   const totalPage = Math.ceil(count / limit)
 
-  const searchRegExp = new RegExp('.*' + search + '.*')
-  const filter = {
-    isAdmin: { $ne: true }, //return only user
-    $or: [
-      { name: { $regex: searchRegExp } },
-      { email: { $regex: searchRegExp } },
-      { phone: { $regex: searchRegExp } },
-    ],
+  let filter = {}
+  if (search) {
+    const searchRegExp = new RegExp('.*' + search + '.*', 'i')
+
+    filter = {
+      isAdmin: { $ne: true },
+      $or: [
+        { name: { $regex: searchRegExp } },
+        { email: { $regex: searchRegExp } },
+        { phone: { $regex: searchRegExp } },
+      ],
+    }
   }
   const options = { password: 0, __v: 0 }
 
@@ -90,7 +95,6 @@ export const findUserById = async (id: string): Promise<IUsers> => {
 }
 
 export const banUserById = async (id: string) => {
-  
   const user = await User.findByIdAndUpdate(id, { isBanned: true })
   if (!user) {
     //create http error //status 404
@@ -100,7 +104,6 @@ export const banUserById = async (id: string) => {
 }
 
 export const unbanUserById = async (id: string) => {
- 
   const user = await User.findByIdAndUpdate(id, { isBanned: false })
   if (!user) {
     //create http error //status 404
@@ -127,7 +130,7 @@ export const updateUser = async (
   })
 
   if (!updateduser) {
-    const error = createHttpError(404, 'Product not found')
+    const error = createHttpError(404, 'User not found')
     throw error
   }
 
@@ -135,10 +138,10 @@ export const updateUser = async (
 }
 
 export const deleteUser = async (id: string): Promise<UsersInput> => {
-  const product = await User.findByIdAndDelete(id)
-  if (!product) {
-    const error = createHttpError(404, 'product not found')
+  const user = await User.findByIdAndDelete(id)
+  if (!user) {
+    const error = createHttpError(404, 'User not found')
     throw error
   }
-  return product
+  return user
 }
