@@ -629,3 +629,5 @@ Method: POST, Path: /auth/login, Date: 27/11/2023, Time: 21:45:26
 Method: GET, Path: /users/, Date: 27/11/2023, Time: 21:45:42
 Method: GET, Path: /users/, Date: 27/11/2023, Time: 21:45:54
 Method: DELETE, Path: /products/camera-9, Date: 27/11/2023, Time: 21:46:03
+Method: POST, Path: /products, Date: 11/28/2023, Time: 3:19:28 PM
+Method: POST, Path: /products, Date: 11/28/2023, Time: 3:19:32 PM
