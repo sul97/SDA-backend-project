@@ -683,3 +683,17 @@ Method: PUT, Path: /users/unban/6564a1b46eae1f4ebd7ddc24, Date: 11/28/2023, Time
 Method: GET, Path: /users, Date: 11/28/2023, Time: 2:26:06 PM
 Method: POST, Path: /auth/logout, Date: 11/28/2023, Time: 2:26:17 PM
 Method: GET, Path: /users, Date: 11/28/2023, Time: 2:26:21 PM
+Method: POST, Path: /auth/login, Date: 11/28/2023, Time: 4:54:03 PM
+Method: POST, Path: /auth/login, Date: 11/28/2023, Time: 4:54:36 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 4:54:42 PM
+Method: POST, Path: /auth/logout, Date: 11/28/2023, Time: 4:54:50 PM
+Method: POST, Path: /auth/login, Date: 11/28/2023, Time: 4:55:20 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 4:55:24 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 4:56:14 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 4:59:06 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 4:59:33 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 5:00:27 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 5:06:02 PM
+Method: POST, Path: /auth/login, Date: 11/28/2023, Time: 5:06:15 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 5:06:19 PM
+Method: GET, Path: /users, Date: 11/28/2023, Time: 5:07:00 PM

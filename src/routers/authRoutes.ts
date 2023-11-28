@@ -7,7 +7,7 @@ import { runValidation } from '../validation/runValidation'
 
 const authRoutes = Router()
 
-authRoutes.post('/login', isLoggedOut, userLoginValidator, runValidation, handleLogin)
+authRoutes.post('/login', isLoggedOut, handleLogin, userLoginValidator, runValidation)
 authRoutes.post('/logout', isLoggedIn, handleLogout)
 
 export default authRoutes
