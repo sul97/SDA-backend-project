@@ -9,12 +9,3 @@ export const createCategoryValidation = [
     .withMessage('Category Name should be at least 3-200 characters long'),
 ]
 
-export const updateCategoryValidation = [
-     check('name')
-    .trim()
-    .notEmpty()
-    .withMessage('Category name is required')
-    .isLength({ min: 3, max: 200 })
-    .withMessage('Category Name should be at least 3-200 characters long'),
-  
-]
