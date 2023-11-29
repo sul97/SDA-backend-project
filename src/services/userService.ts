@@ -3,9 +3,10 @@ import bcrypt from 'bcrypt'
 import { handleSendEmail } from '../helper/sendEmail'
 import { IUsers, UserType, UsersInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
-import { generateJwtToken } from '../util/generateJwtToken'
+import { generateJwtToken } from '../util/jwtTokenHelper'
 
 import User from '../models/userSchema'
+import { dev } from '../config'
 
 export const processRegisterUserService = async (
   name: string,
@@ -36,7 +37,7 @@ export const processRegisterUserService = async (
     tokenPayload.image = imagePath
   }
 
-  const token = generateJwtToken(tokenPayload)
+  const token = generateJwtToken(tokenPayload, dev.app.jwtUserActivationKey, '10m')
 
   //send email hear => token inside the email
   const emailData = {
@@ -76,6 +77,7 @@ export const findAllUsers = async (page = 1, limit = 3, search = '') => {
 
   const skip = (page - 1) * limit
   const users: IUsers[] = await User.find(filter, options)
+    .populate('orders')
     .skip(skip)
     .limit(limit)
     .sort({ createdAt: -1, name: 1 })

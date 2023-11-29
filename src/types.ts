@@ -16,6 +16,7 @@ export interface ProductsType extends Document {
 }
 
 export interface IUsers extends Document {
+  _id: string
   name: string
   email: string
   password: string
@@ -24,6 +25,7 @@ export interface IUsers extends Document {
   phone: string
   isAdmin: boolean
   isBanned: boolean
+  orders: OrdersType['_id']
   createdAt?: string
   updatedAt?: string
 }
