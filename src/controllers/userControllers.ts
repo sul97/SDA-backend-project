@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 import mongoose from 'mongoose'
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
+import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
+import { verifyJwtToken } from '../util/jwtTokenHelper'
 import { dev } from '../config'
 
 import { UsersInput } from '../types'
@@ -54,7 +55,7 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
       throw createHttpError(400, 'please Provide a token')
     }
 
-    const decoded = jwt.verify(token, dev.app.jwtUserActivationKey)
+    const decoded = verifyJwtToken(token, dev.app.jwtUserActivationKey)
 
     if (!decoded) {
       throw createHttpError(401, 'Token is Invalid ')

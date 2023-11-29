@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import bcrypt from 'bcrypt'
-import JWT from 'jsonwebtoken'
 
 import User from '../models/userSchema'
 import { createHttpError } from '../util/createHTTPError'
+import { generateJwtToken } from '../util/jwtTokenHelper'
 import { dev } from '../config'
+
 
 export const handleLogin = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -24,7 +25,9 @@ export const handleLogin = async (req: Request, res: Response, next: NextFunctio
       throw error
     }
    
-    const accessToken = JWT.sign({ _id: user._id }, dev.app.jwtAccessKey, { expiresIn: '7m' })
+    const accessToken = generateJwtToken({ _id: user._id }, dev.app.jwtAccessKey, 
+      '7m',
+    )
     res.cookie('access_token', accessToken, {
         maxAge: 15 * 60 * 1000, // 15 mintues
         httpOnly : true, // prevent from store in browser

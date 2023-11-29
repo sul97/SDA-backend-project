@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose'
 import { dev } from '../config'
 import { IUsers } from '../types'
 
-const userSchema = new Schema<IUsers>(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -44,12 +44,19 @@ const userSchema = new Schema<IUsers>(
       type: String,
       required: [true, 'please Enter the phone'],
       trim: true,
-      validate: {
-        validator: function (value: string) {
-          return /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/.test(value)
-        },
-      },
+      // validate: {
+      //   validator: function (value: string) {
+      //     return /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/.test(value)
+      //   },
+      // },
     },
+    orders: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'orders',
+        required: true,
+      },
+    ],
     isAdmin: {
       type: Boolean,
       default: false,
@@ -58,15 +65,6 @@ const userSchema = new Schema<IUsers>(
       type: Boolean,
       default: false,
     },
-    // role: {
-    //   type: String,
-    //   trim: true,
-    //   required: true,
-    // },
-    // order: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Order',
-    // },
   },
   { timestamps: true }
 )
