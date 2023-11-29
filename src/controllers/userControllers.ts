@@ -10,16 +10,13 @@ import { deleteImage } from '../helper/deleteImageHelper'
 
 import User from '../models/userSchema'
 import {
-  banUserById,
-  deleteUser,
+  processRegisterUserService,
   findAllUsers,
   findUserById,
-  processRegisterUserService,
-  unbanUserById,
+  updateBanStatusById,
   updateUser,
+  deleteUser,
 } from '../services/userService'
-
-
 
 export const processRegisterUserController = async (
   req: Request,
@@ -79,7 +76,7 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
 
 export const banUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await banUserById(req.params.id)
+    await updateBanStatusById(req.params.id, true)
 
     res.status(200).send({
       message: 'banned the user',
@@ -96,7 +93,7 @@ export const banUser = async (req: Request, res: Response, next: NextFunction) =
 
 export const unbanUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await unbanUserById(req.params.id)
+    await updateBanStatusById(req.params.id, false)
 
     res.status(200).send({
       message: 'unbanned the user',
