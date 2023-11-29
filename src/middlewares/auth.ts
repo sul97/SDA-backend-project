@@ -4,6 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
 import User from '../models/userSchema'
+import { verifyJwtToken } from '../util/jwtTokenHelper'
 
 interface CustomRequest extends Request {
   userId?: string
@@ -15,7 +16,7 @@ export const isLoggedIn = async (req: CustomRequest, res: Response, next: NextFu
       const error = createHttpError(404, 'You are not logged in')
       throw error
     }
-    const decoded = (await jwt.verify(accessToken, dev.app.jwtAccessKey)) as JwtPayload
+    const decoded = (verifyJwtToken(accessToken, dev.app.jwtAccessKey)) as JwtPayload
     if (!decoded) {
       const error = createHttpError(404, 'Invalid access token')
       throw error
