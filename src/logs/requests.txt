@@ -707,3 +707,9 @@ Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:19:21 AM
 Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:20:40 AM
 Method: POST, Path: /users/process-register, Date: 11/29/2023, Time: 12:22:52 AM
 Method: POST, Path: /users/process-register, Date: 11/29/2023, Time: 12:23:27 AM
+Method: POST, Path: /auth/login, Date: 11/29/2023, Time: 2:43:30 PM
+Method: GET, Path: /users, Date: 11/29/2023, Time: 2:43:39 PM
+Method: PUT, Path: /users/ban/6565e686bd265c03a87c7fd0, Date: 11/29/2023, Time: 2:44:18 PM
+Method: GET, Path: /users, Date: 11/29/2023, Time: 2:44:28 PM
+Method: PUT, Path: /users/unban/6565e686bd265c03a87c7fd0, Date: 11/29/2023, Time: 2:44:38 PM
+Method: GET, Path: /users, Date: 11/29/2023, Time: 2:44:43 PM

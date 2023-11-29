@@ -7,7 +7,6 @@ import { generateJwtToken } from '../util/generateJwtToken'
 
 import User from '../models/userSchema'
 
-
 export const processRegisterUserService = async (
   name: string,
   email: string,
@@ -94,24 +93,6 @@ export const findUserById = async (id: string): Promise<IUsers> => {
   return user
 }
 
-export const banUserById = async (id: string) => {
-  const user = await User.findByIdAndUpdate(id, { isBanned: true })
-  if (!user) {
-    //create http error //status 404
-    const error = createHttpError(404, 'User not found')
-    throw error
-  }
-}
-
-export const unbanUserById = async (id: string) => {
-  const user = await User.findByIdAndUpdate(id, { isBanned: false })
-  if (!user) {
-    //create http error //status 404
-    const error = createHttpError(404, 'User not found')
-    throw error
-  }
-}
-
 export const updateUser = async (
   id: string,
   updatedUserData: UsersInput,
@@ -144,4 +125,14 @@ export const deleteUser = async (id: string): Promise<UsersInput> => {
     throw error
   }
   return user
+}
+
+export const updateBanStatusById = async (id: string, isBanned: boolean) => {
+  const user = await User.findByIdAndUpdate(id, { isBanned }, { new: true })
+
+  if (!user) {
+    //create http error ,status 404
+    const error = createHttpError(404, 'User not found')
+    throw error
+  }
 }
