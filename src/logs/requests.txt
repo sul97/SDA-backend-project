@@ -127,7 +127,6 @@ Method: DELETE, Path: /categories/phones, Date: 11/25/2023, Time: 5:29:19 AM
 Method: GET, Path: /categories, Date: 11/25/2023, Time: 5:29:34 AM
 Method: GET, Path: /categories, Date: 11/25/2023, Time: 5:38:36 AM
 Method: GET, Path: /categories, Date: 11/25/2023, Time: 5:39:04 AM
-=======
 Method: GET, Path: /, Date: 11/23/2023, Time: 3:01:44 PM
 Method: GET, Path: /products, Date: 11/23/2023, Time: 3:01:49 PM
 Method: GET, Path: /users, Date: 11/23/2023, Time: 3:02:20 PM
@@ -629,6 +628,8 @@ Method: POST, Path: /auth/login, Date: 27/11/2023, Time: 21:45:26
 Method: GET, Path: /users/, Date: 27/11/2023, Time: 21:45:42
 Method: GET, Path: /users/, Date: 27/11/2023, Time: 21:45:54
 Method: DELETE, Path: /products/camera-9, Date: 27/11/2023, Time: 21:46:03
+Method: POST, Path: /products, Date: 11/28/2023, Time: 3:19:28 PM
+Method: POST, Path: /products, Date: 11/28/2023, Time: 3:19:32 PM
 Method: GET, Path: /users, Date: 11/28/2023, Time: 1:39:05 PM
 Method: POST, Path: /users/process-register, Date: 11/28/2023, Time: 1:40:38 PM
 Method: POST, Path: /users/activate, Date: 11/28/2023, Time: 1:40:55 PM
@@ -697,3 +698,12 @@ Method: GET, Path: /users, Date: 11/28/2023, Time: 5:06:02 PM
 Method: POST, Path: /auth/login, Date: 11/28/2023, Time: 5:06:15 PM
 Method: GET, Path: /users, Date: 11/28/2023, Time: 5:06:19 PM
 Method: GET, Path: /users, Date: 11/28/2023, Time: 5:07:00 PM
+
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:07 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:23 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:47 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:56 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:19:21 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:20:40 AM
+Method: POST, Path: /users/process-register, Date: 11/29/2023, Time: 12:22:52 AM
+Method: POST, Path: /users/process-register, Date: 11/29/2023, Time: 12:23:27 AM
