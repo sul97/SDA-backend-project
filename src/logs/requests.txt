@@ -699,3 +699,11 @@ Method: POST, Path: /auth/login, Date: 11/28/2023, Time: 5:06:15 PM
 Method: GET, Path: /users, Date: 11/28/2023, Time: 5:06:19 PM
 Method: GET, Path: /users, Date: 11/28/2023, Time: 5:07:00 PM
 
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:07 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:23 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:47 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:15:56 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:19:21 AM
+Method: POST, Path: /process-register, Date: 11/29/2023, Time: 12:20:40 AM
+Method: POST, Path: /users/process-register, Date: 11/29/2023, Time: 12:22:52 AM
+Method: POST, Path: /users/process-register, Date: 11/29/2023, Time: 12:23:27 AM
