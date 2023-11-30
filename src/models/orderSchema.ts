@@ -33,3 +33,4 @@ const orderSchema = new mongoose.Schema(
 )
 
 export const Order = model<OrdersType>('orders', orderSchema)
+
