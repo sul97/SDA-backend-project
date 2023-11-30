@@ -2,28 +2,25 @@ import slugify from 'slugify'
 
 import { Category } from '../models/categorySchema'
 import { createHttpError } from '../util/createHTTPError'
-import { CategoryInput, CategoryType } from '../types'
+import { CategoryInput } from '../types/categoryTypes'
 
-export const findCategories = async (page = 1, limit = 3 ,search = "") => {
+export const findCategories = async (page = 1, limit = 3, search = '') => {
   const count = await Category.countDocuments()
   const totalPage = Math.ceil(count / limit)
   const searchRegExp = new RegExp('.*' + search + '.*', 'i')
   const filter = {
-    $or: [
-      { name: { $regex: searchRegExp } },
-      { slug: { $regex: searchRegExp } }
-    ]
+    $or: [{ name: { $regex: searchRegExp } }, { slug: { $regex: searchRegExp } }],
   }
   if (page > totalPage) {
     page = totalPage
   }
   const skip = (page - 1) * limit
 
-  const categories = await Category.find(filter).skip(skip).limit(limit).sort({name:1})
+  const categories = await Category.find(filter).skip(skip).limit(limit).sort({ name: 1 })
   return {
     categories,
     totalPage,
-    currentPage: page
+    currentPage: page,
   }
 }
 
@@ -45,6 +42,20 @@ export const findCtegoryBySlug = async (slug: string): Promise<CategoryInput> =>
   return category
 }
 
+export const createNewCategory = async (name: string) => {
+  const categoryExist = await Category.exists({ name: name })
+  if (categoryExist) {
+    const error = createHttpError(409, 'Category already exists with this name')
+    throw error
+  }
+  const newCategory = new Category({
+    name,
+    slug: slugify(name),
+  })
+
+  await newCategory.save()
+}
+
 export const updateCategoryById = async (
   id: string,
   updatedCategoryDate: CategoryInput
@@ -59,6 +70,7 @@ export const updateCategoryById = async (
   }
   return updatedCategory
 }
+
 export const updateCategoryBySlug = async (
   slug: string,
   updatedCategoryDate: CategoryInput
@@ -86,6 +98,7 @@ export const deleteCategoryById = async (id: string) => {
   }
   return category
 }
+
 export const deleteCategoryBySlug = async (slug: string) => {
   const category = await Category.findOneAndDelete({ slug: slug })
   if (!category) {
@@ -93,17 +106,4 @@ export const deleteCategoryBySlug = async (slug: string) => {
     throw error
   }
   return category
-}
-export const createNewCategory = async (name: string) => {
-  const categoryExist = await Category.exists({ name: name })
-  if (categoryExist) {
-    const error = createHttpError(409, 'Category already exists with this name')
-    throw error
-  }
-  const newCategory = new Category({
-    name,
-    slug: slugify(name),
-  })
-
-  await newCategory.save()
 }

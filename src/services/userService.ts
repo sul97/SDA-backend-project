@@ -1,13 +1,12 @@
 import bcrypt from 'bcrypt'
 
 import { handleSendEmail } from '../helper/sendEmail'
-import { IUsers, UserType, UsersInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
 import { generateJwtToken, verifyJwtToken } from '../util/jwtTokenHelper'
 
 import User from '../models/userSchema'
 import { dev } from '../config'
-
+import { IUsers, UserType, UsersInput } from '../types/userTypes'
 
 export const processRegisterUserService = async (
   name: string,
@@ -49,7 +48,6 @@ export const processRegisterUserService = async (
   }
   //send email
   await handleSendEmail(emailData)
-
   return token
 }
 
@@ -117,17 +115,7 @@ export const updateUser = async (
     const error = createHttpError(404, 'User not found')
     throw error
   }
-
   return updateduser
-}
-
-export const deleteUser = async (id: string): Promise<UsersInput> => {
-  const user = await User.findByIdAndDelete(id)
-  if (!user) {
-    const error = createHttpError(404, 'User not found')
-    throw error
-  }
-  return user
 }
 
 export const updateBanStatusById = async (id: string, isBanned: boolean) => {
@@ -139,7 +127,17 @@ export const updateBanStatusById = async (id: string, isBanned: boolean) => {
     throw error
   }
 }
-export const forgetPasswordAction = async (email: string):Promise<string> => {
+
+export const deleteUser = async (id: string): Promise<UsersInput> => {
+  const user = await User.findByIdAndDelete(id)
+  if (!user) {
+    const error = createHttpError(404, 'User not found')
+    throw error
+  }
+  return user
+}
+
+export const forgetPasswordAction = async (email: string): Promise<string> => {
   const user = await User.findOne({ email })
   if (!user) {
     //create http error ,status 404
@@ -147,7 +145,7 @@ export const forgetPasswordAction = async (email: string):Promise<string> => {
     throw error
   }
   const token = generateJwtToken({ email: email }, dev.app.jwtResetPasswordKey, '10m')
-   const emailData = {
+  const emailData = {
     email: email,
     subjeect: 'Rest Password Email',
     html: `<h1>Hello ${user.name}</h1>
@@ -159,22 +157,21 @@ export const forgetPasswordAction = async (email: string):Promise<string> => {
 }
 
 export const resstPasswordAction = async (token: '', password: string) => {
-  
   const decoded = verifyJwtToken(token, dev.app.jwtResetPasswordKey) as { email: string }
-  
+
   const hashedPassword = await bcrypt.hash(password, 10)
 
   if (!token) {
-     throw createHttpError(401, 'Plase Enter Valid Token ')
+    throw createHttpError(401, 'Plase Enter Valid Token ')
   }
   // Check if the decoded value is falsy
-   if (!decoded) {
-      throw createHttpError(401, 'Token is Invalid ')
+  if (!decoded) {
+    throw createHttpError(401, 'Token is Invalid ')
   }
-   // Update the user's password in the database
+  // Update the user's password in the database
   const user = await User.findOneAndUpdate(
     { email: decoded.email },
-    { $set: { password: hashedPassword} },
+    { $set: { password: hashedPassword } },
     { new: true }
   )
   // Check if the user was not found
@@ -184,5 +181,3 @@ export const resstPasswordAction = async (token: '', password: string) => {
   // Return the updated user
   return user
 }
-
-

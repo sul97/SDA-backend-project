@@ -1,8 +1,8 @@
 import { Order } from '../models/orderSchema'
-import { OrdersInput } from '../types'
+import { OrdersInput } from '../types/orderTypes'
 import { createHttpError } from '../util/createHTTPError'
 
-export const findAllOrders = async (page = 1, limit = 3) => {
+export const findAllOrders = async (page = 1, limit = 3, userId: string) => {
   const count = await Order.countDocuments()
   const totalPage = Math.ceil(count / limit)
 
@@ -11,41 +11,47 @@ export const findAllOrders = async (page = 1, limit = 3) => {
   }
 
   const skip = (page - 1) * limit
-  const orders = await Order.find().populate('product').populate('user').skip(skip).limit(limit)
-
+  const orders = await Order.find({ user: userId })
+    .populate('products.product', 'title price')
+    .populate('user', 'name email')
+    .skip(skip)
+    .limit(limit)
+    .sort({ createdAt: -1 })
+  if (orders.length == 0) {
+    throw createHttpError(404, 'There are no orders for this user yet')
+  }
   return { orders, totalPage, currentPage: page }
 }
 
-export const createOrder = async (order: OrdersInput) => {
-  const { product, user } = order
-  const userExist = await Order.exists({ user: user })
-  if (userExist) {
-    throw new Error('order already exist with this user')
+export const findAllOrdersForAdmin = async (page = 1, limit = 3) => {
+  const count = await Order.countDocuments()
+  const totalPage = Math.ceil(count / limit)
+
+  if (page > totalPage) {
+    page = totalPage
   }
-  const newOrder: OrdersInput = new Order({
-    product: product,
-    user: user,
+
+  const skip = (page - 1) * limit
+  const orders = await Order.find()
+    .populate('products.product', 'title price')
+    .populate('user', 'name email')
+    .skip(skip)
+    .limit(limit)
+    .sort({ createdAt: -1 })
+  if (orders.length == 0) {
+    throw createHttpError(404, 'There are no orders yet')
+  }
+  return { orders, totalPage, currentPage: page }
+}
+
+export const placeOrder = async (cartItems: OrdersInput, payment: OrdersInput, userId: string) => {
+  const newOrder = new Order({
+    products: cartItems.products,
+    payment: cartItems.payment,
+    user: userId,
   })
   await newOrder.save()
   return newOrder
-}
-
-export const findOrderById = async (id: string): Promise<OrdersInput> => {
-  const order = await Order.findById(id)
-  if (!order) {
-    const error = createHttpError(404, 'Order not found')
-    throw error
-  }
-  return order
-}
-
-export const updateOrderById = async (id: string, order: OrdersInput): Promise<OrdersInput> => {
-  const updatedOrder = await Order.findByIdAndUpdate(id, order, { new: true })
-  if (!updatedOrder) {
-    const error = createHttpError(404, 'Order not found')
-    throw error
-  }
-  return updatedOrder
 }
 
 export const deleteOrderById = async (id: string) => {

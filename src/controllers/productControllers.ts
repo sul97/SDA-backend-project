@@ -7,8 +7,8 @@ import {
   findProductsBySlug,
   updateProduct,
 } from '../services/productService'
-import { ProductsInput } from '../types'
 import { deleteImage } from '../helper/deleteImageHelper'
+import { ProductsInput } from '../types/productTypes'
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -30,21 +30,6 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
   }
 }
 
-export const createSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const file = req.file
-    const imge = file?.path
-    const productData = req.body
-    const newProduct = await createProduct(productData, imge)
-    res.status(201).send({
-      message: ' The Product has been created successfully',
-      payload: newProduct,
-    })
-  } catch (error) {
-    next(error)
-  }
-}
-
 export const getSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const product = await findProductsBySlug(req.params.slug)
@@ -57,15 +42,15 @@ export const getSingleProduct = async (req: Request, res: Response, next: NextFu
   }
 }
 
-export const deleteSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
+export const createSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const product = await deleteProduct(req.params.slug)
-    if (product && product.image) {
-      await deleteImage(product.image)
-    }
-    res.send({
-      message: ' The product has been deleted successfully ',
-      payload: product,
+    const file = req.file
+    const imge = file?.path
+    const productData = req.body
+    const newProduct = await createProduct(productData, imge)
+    res.status(201).send({
+      message: ' The Product has been created successfully',
+      payload: newProduct,
     })
   } catch (error) {
     next(error)
@@ -83,6 +68,21 @@ export const updateSingleProduct = async (req: Request, res: Response, next: Nex
     res.status(200).send({
       message: 'The Product has been updated successfully',
       payload: updatedProduct,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const deleteSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const product = await deleteProduct(req.params.slug)
+    if (product && product.image) {
+      await deleteImage(product.image)
+    }
+    res.send({
+      message: ' The product has been deleted successfully ',
+      payload: product,
     })
   } catch (error) {
     next(error)

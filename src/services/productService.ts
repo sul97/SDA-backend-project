@@ -2,7 +2,7 @@ import slugify from 'slugify'
 
 import { Product } from '../models/productSchema'
 import { createHttpError } from '../util/createHTTPError'
-import { ProductsInput, ProductsType } from '../types'
+import { ProductsInput, ProductsType } from '../types/productTypes'
 
 export const findAllProducts = async (page = 1, limit = 3, search = '') => {
   const count = await Product.countDocuments()
@@ -24,15 +24,16 @@ export const findAllProducts = async (page = 1, limit = 3, search = '') => {
     .sort({ price: 1 })
   return { products, totalPage, currentPage: page }
 }
+
 export const findProductsBySlug = async (slug: string): Promise<ProductsInput> => {
   const product = await Product.findOne({ slug: slug })
   if (!product) {
-    //create http error //status 404
     const error = createHttpError(404, 'product not found')
     throw error
   }
   return product
 }
+
 export const createProduct = async (product: ProductsInput, image: string | undefined) => {
   const { title } = product
   const productExist = await Product.exists({ title: title })
@@ -75,7 +76,6 @@ export const updateProduct = async (
     const error = createHttpError(404, 'Product not found')
     throw error
   }
-
   return updatedproduct
 }
 
