@@ -6,7 +6,6 @@ import { createHttpError } from '../util/createHTTPError'
 import { verifyJwtToken } from '../util/jwtTokenHelper'
 import { dev } from '../config'
 
-import { UsersInput } from '../types'
 import { deleteImage } from '../helper/deleteImageHelper'
 
 import User from '../models/userSchema'
@@ -21,6 +20,7 @@ import {
   resstPasswordAction,
 } from '../services/userService'
 import { errorHandler } from '../middlewares/errorHandler'
+import { UsersInput } from '../types/userTypes'
 
 export const processRegisterUserController = async (
   req: Request,

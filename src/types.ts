@@ -38,13 +38,17 @@ export interface CategoryType extends Document {
   updatedAt: string
 }
 
-export interface OrdersType extends Document {
-  _id: string
+export interface OrderProducts {
   product: ProductsType['_id']
+  quantity: number
+}
+
+export interface OrderPayment {}
+export interface OrdersType extends Document {
+  products: OrderProducts[]
+  payment: OrderProducts
   user: IUsers['_id']
-  purchasedAt: string
-  createdAt: string
-  updatedAt: string
+  status: 'Not Proccess' | 'Proccessing' | 'shipped' | 'Delivered' | 'Cancelled'
 }
 
 export type EmailDataType = {
@@ -61,7 +65,7 @@ export type UserType = {
   phone: string
   image?: string
   isAdmin?: boolean
-  isBanned?:boolean
+  isBanned?: boolean
 }
 
 export interface Error {

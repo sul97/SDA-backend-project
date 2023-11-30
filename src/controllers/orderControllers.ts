@@ -1,25 +1,47 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { OrdersInput } from '../types'
 import {
-  createOrder,
   deleteOrderById,
   findAllOrders,
-  findOrderById,
-  updateOrderById,
+  placeOrder,
+  findAllOrdersForAdmin,
 } from '../services/orderService'
+import { OrdersType } from '../types/orderTypes'
 
-export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
+interface CustomRequest extends Request {
+  userId?: string
+}
+
+export const handleProcessPayment = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = String(req.userId)
+    const { cartItems, payment } = req.body
+    const newOrder: OrdersType = await placeOrder(cartItems, payment, userId)
+    res.send({
+      message: 'payment was successful and order was created',
+      oayload: newOrder,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getAllOrdersForUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 3
-    const { orders, totalPage, currentPage } = await findAllOrders(page, limit)
+    const userId = req.params.id
+    const { orders, totalPage, currentPage } = await findAllOrders(page, limit, userId)
     res.send({
-      message: 'return all orders',
+      message: 'return all orders for the user',
       payload: {
         orders,
         totalPage,
-        currentPage: page,
+        currentPage,
       },
     })
   } catch (error) {
@@ -27,47 +49,23 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
   }
 }
 
-export const createSingleOrder = async (req: Request, res: Response, next: NextFunction) => {
+export const getAllOrdersForAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const orderData = req.body
-    const newOrder = await createOrder(orderData)
-    res.status(201).send({
-      message: 'The order has been created successfully',
-      payload: newOrder,
+    let page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 3
+    const { orders, totalPage, currentPage } = await findAllOrdersForAdmin(page, limit)
+    res.send({
+      message: 'return all orders for the admin',
+      payload: {
+        orders,
+        totalPage,
+        currentPage,
+      },
     })
   } catch (error) {
     next(error)
   }
 }
-
-export const getSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id
-      console.log(id)
-      const category = await findOrderById(id)
-      res.status(200).json({
-        massege: 'return single Order',
-        payload: category,
-      })
-    } catch (error) {
-      next(error)
-    }
-  }
-
-    export const updateSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id
-      const updatedOrder: OrdersInput = req.body
-      const order = await updateOrderById(id, updatedOrder)
-      res.status(200).json({
-        massege: 'The Order has been updated successfully',
-        payload: order,
-      })
-    } catch (error) {
-      next(error)
-    }
-  }
-
 
 export const deleteSingleOrderById = async (req: Request, res: Response, next: NextFunction) => {
   try {

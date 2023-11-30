@@ -27,18 +27,14 @@ userRoutes.post(
   runValidation,
   processRegisterUserController
 )
-userRoutes.post('/activate',isLoggedOut, activateUser)
-
+userRoutes.post('/activate', isLoggedOut, activateUser)
+userRoutes.put('/ban/:id', isLoggedIn, isAdmin, banUser)
+userRoutes.put('/unban/:id', isLoggedIn, isAdmin, unbanUser)
 userRoutes.get('/', isLoggedIn, isAdmin, getAllUsers)
 userRoutes.get('/:id', isLoggedIn, getSingleUser)
 userRoutes.put('/:id', uploadUsersimage.single('image'), updateSingleUser)
 userRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleUser)
-
-userRoutes.put('/ban/:id', isLoggedIn, isAdmin, banUser)
-userRoutes.put('/unban/:id', isLoggedIn, isAdmin, unbanUser)
 userRoutes.post('/forget-password', isLoggedOut, forgetPassword)
 userRoutes.post('/reset-password', isLoggedOut, resetPassword)
-
-
 
 export default userRoutes
