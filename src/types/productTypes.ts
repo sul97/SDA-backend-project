@@ -12,8 +12,8 @@ export interface ProductsType extends Document {
   quantity: number
   sold: number
   shipping?: number
-  createdAt: NativeDate
-  updatedAt: NativeDate
+  createdAt: string
+  updatedAt: string
 }
 
 export type ProductsInput = Omit<ProductsType, '_id'>

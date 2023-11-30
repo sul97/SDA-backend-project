@@ -2,7 +2,7 @@ import slugify from 'slugify'
 
 import { Category } from '../models/categorySchema'
 import { createHttpError } from '../util/createHTTPError'
-import { CategoryInput, CategoryType } from '../types'
+import { CategoryInput } from '../types/categoryTypes'
 
 export const findCategories = async (page = 1, limit = 3, search = '') => {
   const count = await Category.countDocuments()

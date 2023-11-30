@@ -1,8 +1,6 @@
 import { Request, NextFunction, Response } from 'express'
-import slugify from 'slugify'
+import mongoose from 'mongoose'
 
-import { Category } from '../models/categorySchema'
-import { CategoryInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
 import {
   createNewCategory,
@@ -14,7 +12,7 @@ import {
   updateCategoryById,
   updateCategoryBySlug,
 } from '../services/categoryService'
-import mongoose from 'mongoose'
+import { CategoryInput } from '../types/categoryTypes'
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {

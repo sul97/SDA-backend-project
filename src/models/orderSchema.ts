@@ -1,6 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose'
-
-import { OrdersType } from '../types'
+import { OrdersType } from '../types/orderTypes'
 
 const orderSchema = new mongoose.Schema(
   {
@@ -19,18 +18,14 @@ const orderSchema = new mongoose.Schema(
       ref: 'users',
       required: true,
     },
-    payment: {type:Object, required:true},
+    payment: { type: Object, required: true },
     status: {
       type: String,
-      enum: [
-        'Not Proccess' , 'Proccessing' , 'Shipped' , 'Delivered' , 'Cancelled',
-      ],
-      defaul: 'Not Proccess'
+      enum: ['Not Proccess', 'Proccessing', 'Shipped', 'Delivered', 'Cancelled'],
+      default: 'Not Proccess',
     },
-    totalAmount: { type: Number, required: true },
   },
   { timestamps: true }
 )
 
 export const Order = model<OrdersType>('orders', orderSchema)
-

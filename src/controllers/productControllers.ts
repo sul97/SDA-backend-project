@@ -7,8 +7,8 @@ import {
   findProductsBySlug,
   updateProduct,
 } from '../services/productService'
-import { ProductsInput } from '../types'
 import { deleteImage } from '../helper/deleteImageHelper'
+import { ProductsInput } from '../types/productTypes'
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {

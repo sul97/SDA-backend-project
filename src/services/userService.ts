@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt'
 
 import { handleSendEmail } from '../helper/sendEmail'
-import { IUsers, UserType, UsersInput } from '../types'
 import { createHttpError } from '../util/createHTTPError'
 import { generateJwtToken, verifyJwtToken } from '../util/jwtTokenHelper'
 
 import User from '../models/userSchema'
 import { dev } from '../config'
+import { IUsers, UserType, UsersInput } from '../types/userTypes'
 
 export const processRegisterUserService = async (
   name: string,

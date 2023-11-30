@@ -12,8 +12,8 @@ export interface IUsers extends Document {
     isAdmin: boolean
     isBanned: boolean
     orders: OrdersType['_id'][]
-    createdAt?: NativeDate
-    updatedAt?: NativeDate
+    createdAt?: string
+    updatedAt?: string
   }
 
 export type UserType = {

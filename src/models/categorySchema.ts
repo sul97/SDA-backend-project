@@ -1,6 +1,6 @@
 import { Schema ,model} from "mongoose";
+import { CategoryInput } from "../types/categoryTypes";
 
-import { CategoryInput } from "../types";
 
 const categorySchema = new Schema({
     name: {

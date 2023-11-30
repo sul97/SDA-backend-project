@@ -1,6 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose'
+
 import { dev } from '../config'
-import { IUsers } from '../types'
+import { IUsers } from '../types/userTypes'
 
 const userSchema = new mongoose.Schema(
   {

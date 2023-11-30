@@ -2,7 +2,7 @@ import slugify from 'slugify'
 
 import { Product } from '../models/productSchema'
 import { createHttpError } from '../util/createHTTPError'
-import { ProductsInput, ProductsType } from '../types'
+import { ProductsInput, ProductsType } from '../types/productTypes'
 
 export const findAllProducts = async (page = 1, limit = 3, search = '') => {
   const count = await Product.countDocuments()
