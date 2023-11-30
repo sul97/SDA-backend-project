@@ -9,6 +9,8 @@ import {
   activateUser,
   banUser,
   unbanUser,
+  forgetPassword,
+  resetPassword,
 } from '../controllers/userControllers'
 import { uploadUsersimage } from '../middlewares/uploadFile'
 import { userRegistrationValidator } from '../validation/userValidation'
@@ -34,5 +36,9 @@ userRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleUser)
 
 userRoutes.put('/ban/:id', isLoggedIn, isAdmin, banUser)
 userRoutes.put('/unban/:id', isLoggedIn, isAdmin, unbanUser)
+userRoutes.post('/forget-password', isLoggedOut, forgetPassword)
+userRoutes.post('/reset-password', isLoggedOut, resetPassword)
+
+
 
 export default userRoutes
