@@ -10,7 +10,7 @@ import {
   updateSingleCategoryBySulg,
   updateSingleategoryId,
 } from '../controllers/categoryControllers'
-import { createCategoryValidation  } from '../validation/categoryVlidation'
+import { createCategoryValidation } from '../validation/categoryVlidation'
 import { runValidation } from '../validation/runValidation'
 import { isAdmin, isLoggedIn } from '../middlewares/auth'
 
@@ -27,8 +27,6 @@ categoryRoutes.post(
   runValidation,
   createCategory
 )
-categoryRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleeCategoryById)
-categoryRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleCategoryBySlug)
 categoryRoutes.put('/:id', isLoggedIn, isAdmin, updateSingleategoryId)
 categoryRoutes.put(
   '/:slug',
@@ -38,6 +36,7 @@ categoryRoutes.put(
   runValidation,
   updateSingleCategoryBySulg
 )
-
+categoryRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleeCategoryById)
+categoryRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleCategoryBySlug)
 
 export default categoryRoutes

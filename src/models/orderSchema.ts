@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema(
           ref: 'products',
           required: true,
         },
-        guantity: { type: Number, required: true },
+        quantity: { type: Number, required: true },
       },
     ],
     user: {
@@ -23,7 +23,7 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: [
-        'Not Proccess' , 'Proccessing' , 'shipped' , 'Delivered' , 'Cancelled',
+        'Not Proccess' , 'Proccessing' , 'Shipped' , 'Delivered' , 'Cancelled',
       ],
       defaul: 'Not Proccess'
     },
