@@ -17,7 +17,10 @@ import {
   updateBanStatusById,
   updateUser,
   deleteUser,
+  forgetPasswordAction,
+  resstPasswordAction,
 } from '../services/userService'
+import { errorHandler } from '../middlewares/errorHandler'
 
 export const processRegisterUserController = async (
   req: Request,
@@ -183,3 +186,31 @@ export const deleteSingleUser = async (req: Request, res: Response, next: NextFu
     }
   }
 }
+export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const {email} = req.body
+    const token = await forgetPasswordAction(email)
+    res.status(200).json({
+      message: 'Check your email to rest your pawword',
+      token,
+    })
+  } catch (error) {
+      next(error)
+  }
+}
+export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token    = req.body.token
+    const password = req.body.password
+
+    const user = await resstPasswordAction(token, password)
+      
+  res.status(200).json({
+      message: 'The password has been reset successfully',
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+
