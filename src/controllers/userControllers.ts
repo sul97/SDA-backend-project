@@ -66,7 +66,7 @@ export const activateUser = async (req: Request, res: Response, next: NextFuncti
     await User.create(decoded)
 
     res.status(200).json({
-      message: 'User registration successful',
+      message: 'User registration successfully',
     })
   } catch (error) {
     if (error instanceof TokenExpiredError || error instanceof JsonWebTokenError) {

@@ -848,3 +848,14 @@ Method: POST, Path: /users/reset-password, Date: 11/30/2023, Time: 3:45:22 AM
 Method: POST, Path: /users/forget-password, Date: 11/30/2023, Time: 3:49:11 AM
 Method: POST, Path: /users/reset-password, Date: 11/30/2023, Time: 3:49:42 AM
 Method: POST, Path: /auth/login, Date: 11/30/2023, Time: 3:50:05 AM
+Method: POST, Path: /auth/login, Date: 11/30/2023, Time: 9:40:14 AM
+Method: GET, Path: /users, Date: 11/30/2023, Time: 9:40:19 AM
+Method: DELETE, Path: /users/656777897416e9fe6d022105, Date: 11/30/2023, Time: 9:40:42 AM
+Method: GET, Path: /users, Date: 11/30/2023, Time: 9:42:47 AM
+Method: POST, Path: /users/process-register, Date: 11/30/2023, Time: 9:43:00 AM
+Method: POST, Path: /auth/logout, Date: 11/30/2023, Time: 9:43:06 AM
+Method: POST, Path: /users/process-register, Date: 11/30/2023, Time: 9:43:11 AM
+Method: POST, Path: /users/activate, Date: 11/30/2023, Time: 9:43:40 AM
+Method: POST, Path: /auth/login, Date: 11/30/2023, Time: 9:44:09 AM
+Method: GET, Path: /users, Date: 11/30/2023, Time: 9:44:13 AM
+Method: DELETE, Path: /users/65682f1c07d76040177ecd0c, Date: 11/30/2023, Time: 9:44:59 AM
