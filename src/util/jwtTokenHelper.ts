@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken'
 
 export const generateJwtToken = (tokenPayload: object, secretKey: string, expiresIn = '') => {
   try {
-    if (!tokenPayload) {
-      throw new Error('Token payload must be provided')
+    if (!tokenPayload || Object.keys(tokenPayload).length === 0) {
+      throw new Error('Token payload must be non-empty Object')
     }
     if (typeof secretKey !== 'string' || secretKey === '') {
-      throw new Error('secretKey must be provided ')
+      throw new Error('secretKey must be must be non-empty String ')
     }
     if (!expiresIn) {
       throw new Error('expiresIn must be provided')
@@ -21,11 +21,11 @@ export const generateJwtToken = (tokenPayload: object, secretKey: string, expire
 
 export const verifyJwtToken = (tokenPayload: '', secretKey: string) => {
   try {
-    if (!tokenPayload) {
-      throw new Error('Token payload must be provided')
-    }
+     if (!tokenPayload || Object.keys(tokenPayload).length === 0) {
+       throw new Error('Token payload must be non-empty Object')
+     }
     if (typeof secretKey !== 'string' || secretKey === '') {
-      throw new Error('secretKey must be provided ')
+      throw new Error('secretKey must be must be non-empty String ')
     }
 
     const token = jwt.verify(tokenPayload, secretKey)
