@@ -16,8 +16,8 @@ import { CategoryInput } from '../types/categoryTypes'
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let page = Number(req.query.page)
-    const limit = Number(req.query.limit)
+    let page = Number(req.query.page) ||1
+    const limit = Number(req.query.limit)||3
     const search = req.query.search as string
     const { categories, totalPage, currentPage } = await findCategories(page, limit, search)
     res.status(200).json({
