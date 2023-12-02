@@ -51,13 +51,6 @@ const userSchema = new mongoose.Schema(
       //   },
       // },
     },
-    orders: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'orders',
-        required: true,
-      },
-    ],
     isAdmin: {
       type: Boolean,
       default: false,

@@ -18,6 +18,7 @@ import {
   deleteUser,
   forgetPasswordAction,
   resstPasswordAction,
+  activeUser,
 } from '../services/userService'
 import { errorHandler } from '../middlewares/errorHandler'
 import { UsersInput } from '../types/userTypes'
@@ -53,17 +54,7 @@ export const processRegisterUserController = async (
 export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.body.token
-
-    if (!token) {
-      throw createHttpError(400, 'please Provide a token')
-    }
-
-    const decoded = verifyJwtToken(token, dev.app.jwtUserActivationKey)
-
-    if (!decoded) {
-      throw createHttpError(401, 'Token is Invalid ')
-    }
-    await User.create(decoded)
+    const user = await activeUser(token)
 
     res.status(200).json({
       message: 'User registration successfully',
@@ -188,29 +179,27 @@ export const deleteSingleUser = async (req: Request, res: Response, next: NextFu
 }
 export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {email} = req.body
+    const { email } = req.body
     const token = await forgetPasswordAction(email)
     res.status(200).json({
       message: 'Check your email to rest your pawword',
       token,
     })
   } catch (error) {
-      next(error)
+    next(error)
   }
 }
 export const resetPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token    = req.body.token
+    const token = req.body.token
     const password = req.body.password
 
     const user = await resstPasswordAction(token, password)
-      
-  res.status(200).json({
+
+    res.status(200).json({
       message: 'The password has been reset successfully',
     })
   } catch (error) {
     next(error)
   }
 }
-
-
