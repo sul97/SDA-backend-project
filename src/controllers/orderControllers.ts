@@ -23,7 +23,7 @@ export const handleProcessPayment = async (
     const newOrder: OrdersType = await placeOrder(cartItems, payment, userId)
     res.send({
       message: 'payment was successful and order was created',
-      oayload: newOrder,
+      payload: newOrder,
     })
   } catch (error) {
     next(error)

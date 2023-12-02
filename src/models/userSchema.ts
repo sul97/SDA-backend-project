@@ -45,11 +45,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'please Enter the phone'],
       trim: true,
-      // validate: {
-      //   validator: function (value: string) {
-      //     return /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/.test(value)
-      //   },
-      // },
     },
     isAdmin: {
       type: Boolean,

@@ -980,3 +980,8 @@ Method: GET, Path: /orders/all-orders, Date: 30/11/2023, Time: 16:59:55
 Method: GET, Path: /orders/all-orders, Date: 30/11/2023, Time: 16:59:56
 Method: GET, Path: /orders/all-orders, Date: 30/11/2023, Time: 16:59:57
 Method: GET, Path: /orders/all-orders, Date: 30/11/2023, Time: 17:00:16
+Method: POST, Path: /users/process-register, Date: 12/2/2023, Time: 8:58:36 PM
+Method: POST, Path: /users/process-register, Date: 12/2/2023, Time: 8:58:46 PM
+Method: POST, Path: /users/process-register, Date: 12/2/2023, Time: 8:59:01 PM
+Method: POST, Path: /users/process-register, Date: 12/2/2023, Time: 8:59:17 PM
+Method: POST, Path: /users/activate, Date: 12/2/2023, Time: 8:59:47 PM

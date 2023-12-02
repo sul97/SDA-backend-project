@@ -3,12 +3,9 @@ import mongoose from 'mongoose'
 import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
-import { verifyJwtToken } from '../util/jwtTokenHelper'
-import { dev } from '../config'
+
 
 import { deleteImage } from '../helper/deleteImageHelper'
-
-import User from '../models/userSchema'
 import {
   processRegisterUserService,
   findAllUsers,
