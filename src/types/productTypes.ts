@@ -1,4 +1,5 @@
 import { Document } from 'mongoose'
+
 import { CategoryType } from './categoryTypes'
 
 export interface ProductsType extends Document {

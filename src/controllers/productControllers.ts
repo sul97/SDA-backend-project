@@ -15,7 +15,6 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
     let page = Number(req.query.page) || 1
     const limit = Number(req.query.limit) || 3
     const search = req.query.search as string
-    console.log(search)
     const { products, totalPage, currentPage } = await findAllProducts(page, limit, search)
     res.send({
       message: 'return all products',

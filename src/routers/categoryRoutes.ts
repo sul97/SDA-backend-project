@@ -3,12 +3,12 @@ import express from 'express'
 import {
   createCategory,
   deleteSingleCategoryBySlug,
-  deleteSingleeCategoryById,
+  deleteSingleCategoryById,
   getAllCategories,
   getSingleCategoryById,
   getSingleCategoryBySlug,
   updateSingleCategoryBySulg,
-  updateSingleategoryId,
+  updateSingleCategoryId,
 } from '../controllers/categoryControllers'
 import { createCategoryValidation } from '../validation/categoryVlidation'
 import { runValidation } from '../validation/runValidation'
@@ -27,7 +27,7 @@ categoryRoutes.post(
   runValidation,
   createCategory
 )
-categoryRoutes.put('/:id', isLoggedIn, isAdmin, updateSingleategoryId)
+categoryRoutes.put('/:id', isLoggedIn, isAdmin, updateSingleCategoryId)
 categoryRoutes.put(
   '/:slug',
   isLoggedIn,
@@ -36,7 +36,7 @@ categoryRoutes.put(
   runValidation,
   updateSingleCategoryBySulg
 )
-categoryRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleeCategoryById)
+categoryRoutes.delete('/:id', isLoggedIn, isAdmin, deleteSingleCategoryById)
 categoryRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleCategoryBySlug)
 
 export default categoryRoutes

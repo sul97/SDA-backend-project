@@ -1,4 +1,5 @@
 import { Document } from 'mongoose'
+
 import { OrdersType } from './orderTypes'
 
 export interface IUsers extends Document {

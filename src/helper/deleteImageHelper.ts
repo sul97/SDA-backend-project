@@ -5,7 +5,6 @@ export const deleteImage = async (imagePath:string) => {
       await fs.unlink(imagePath)
       console.log("image is delete frome server")
   } catch (error) {
-      console.log(error)
     throw error
   }
 }

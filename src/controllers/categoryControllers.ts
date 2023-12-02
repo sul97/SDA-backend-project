@@ -34,7 +34,6 @@ export const getAllCategories = async (req: Request, res: Response, next: NextFu
 export const getSingleCategoryById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params
-    console.log(id)
     const category = await findCtegoryById(id)
     res.status(200).json({
       massege: 'return single Category',
@@ -76,7 +75,7 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
   }
 }
 
-export const updateSingleategoryId = async (req: Request, res: Response, next: NextFunction) => {
+export const updateSingleCategoryId = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params
     const updatedCategory: CategoryInput = req.body
@@ -113,7 +112,7 @@ export const updateSingleCategoryBySulg = async (
   }
 }
 
-export const deleteSingleeCategoryById = async (
+export const deleteSingleCategoryById = async (
   req: Request,
   res: Response,
   next: NextFunction

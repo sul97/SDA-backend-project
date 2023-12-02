@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import bcrypt from 'bcrypt'
 
-import User from '../models/userSchema'
+import {User} from '../models/userSchema'
 import { createHttpError } from '../util/createHTTPError'
 import { generateJwtToken } from '../util/jwtTokenHelper'
 import { dev } from '../config'

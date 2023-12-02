@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
 import { dev } from '../config'
-import User from '../models/userSchema'
+import {User} from '../models/userSchema'
 import { verifyJwtToken } from '../util/jwtTokenHelper'
 
 interface CustomRequest extends Request {

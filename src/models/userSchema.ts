@@ -59,5 +59,4 @@ const userSchema = new mongoose.Schema(
 )
 
 //name of schema in mongo (products , users)
-const User = model<IUsers>('users', userSchema)
-export default User
+export const User = model<IUsers>('users', userSchema)

@@ -4,7 +4,6 @@ import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
 
-
 import { deleteImage } from '../helper/deleteImageHelper'
 import {
   processRegisterUserService,
@@ -17,7 +16,6 @@ import {
   resstPasswordAction,
   activeUser,
 } from '../services/userService'
-import { errorHandler } from '../middlewares/errorHandler'
 import { UsersInput } from '../types/userTypes'
 
 export const processRegisterUserController = async (

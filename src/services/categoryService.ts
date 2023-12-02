@@ -78,11 +78,9 @@ export const updateCategoryBySlug = async (
   if (updatedCategoryDate.name) {
     updatedCategoryDate.slug = slugify(updatedCategoryDate.name)
   }
-  console.log(updatedCategoryDate)
   const updatedCategory = await Category.findOneAndUpdate({ slug: slug }, updatedCategoryDate, {
     new: true,
   })
-  console.log(updatedCategory)
   if (!updatedCategory) {
     const error = createHttpError(404, 'Category not found')
     throw error

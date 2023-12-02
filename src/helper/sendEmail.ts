@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+
 import { dev } from '../config'
 
 import { EmailDataType } from '../types/emailDataType'
@@ -22,9 +23,9 @@ export const handleSendEmail = async (emailData: EmailDataType) => {
     html: emailData.html,
   }
     const info = await transporter.sendMail(mailOptions)
-    console.log("message esnt : "+ info.response)
+    console.log("message send : "+ info.response)
   } catch  (error){
-    console.log("error encountered while sende email", error)
+    console.log("error encountered while sending email", error)
     throw error
 }
 }

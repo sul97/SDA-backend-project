@@ -1,13 +1,16 @@
 import bcrypt from 'bcrypt'
 
+import { JwtPayload } from 'jsonwebtoken'
+
+import {User} from '../models/userSchema'
+import { dev } from '../config'
+import { IUsers, UserType, UsersInput } from '../types/userTypes'
+
 import { handleSendEmail } from '../helper/sendEmail'
 import { createHttpError } from '../util/createHTTPError'
 import { generateJwtToken, verifyJwtToken } from '../util/jwtTokenHelper'
 
-import User from '../models/userSchema'
-import { dev } from '../config'
-import { IUsers, UserType, UsersInput } from '../types/userTypes'
-import { JwtPayload } from 'jsonwebtoken'
+
 
 export const processRegisterUserService = async (
   name: string,
