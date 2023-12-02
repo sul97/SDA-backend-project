@@ -7,6 +7,7 @@ import { generateJwtToken, verifyJwtToken } from '../util/jwtTokenHelper'
 import User from '../models/userSchema'
 import { dev } from '../config'
 import { IUsers, UserType, UsersInput } from '../types/userTypes'
+import { JwtPayload } from 'jsonwebtoken'
 
 export const processRegisterUserService = async (
   name: string,
@@ -51,6 +52,21 @@ export const processRegisterUserService = async (
   return token
 }
 
+export const activeUser = async (token: '') => {
+  if (!token) {
+    throw createHttpError(400, 'please Provide a token')
+  }
+
+  const decoded = verifyJwtToken(token, dev.app.jwtUserActivationKey)
+
+  if (!decoded) {
+    throw createHttpError(401, 'Token is Invalid ')
+  }
+  const useractive = await User.create(decoded)
+
+  return useractive
+}
+
 export const findAllUsers = async (page = 1, limit = 3, search = '') => {
   const count = await User.countDocuments()
   const totalPage = Math.ceil(count / limit)
@@ -76,7 +92,6 @@ export const findAllUsers = async (page = 1, limit = 3, search = '') => {
 
   const skip = (page - 1) * limit
   const users: IUsers[] = await User.find(filter, options)
-    .populate('orders')
     .skip(skip)
     .limit(limit)
     .sort({ createdAt: -1, name: 1 })
@@ -157,7 +172,7 @@ export const forgetPasswordAction = async (email: string): Promise<string> => {
 }
 
 export const resstPasswordAction = async (token: '', password: string) => {
-  const decoded = verifyJwtToken(token, dev.app.jwtResetPasswordKey) as { email: string }
+  const decoded = verifyJwtToken(token, dev.app.jwtResetPasswordKey) as JwtPayload
 
   const hashedPassword = await bcrypt.hash(password, 10)
 
