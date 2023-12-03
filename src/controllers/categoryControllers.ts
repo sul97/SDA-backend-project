@@ -36,6 +36,7 @@ export const getSingleCategoryById = async (req: Request, res: Response, next: N
   try {
     const { id } = req.params
     const category = await findCtegoryById(id)
+    
     res.status(200).json({
       massege: 'return single Category',
       payload: category,
@@ -61,7 +62,6 @@ export const getSingleCategoryBySlug = async (req: Request, res: Response, next:
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.body
-    console.log(name)
     await createNewCategory(name)
     res.status(201).json({
       message: 'The category has been created successfully',
