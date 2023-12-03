@@ -1086,3 +1086,14 @@ Method: GET, Path: /users, Date: 12/3/2023, Time: 9:38:00 AM
 Method: POST, Path: /auth/login, Date: 12/3/2023, Time: 10:55:28 AM
 Method: GET, Path: /users, Date: 12/3/2023, Time: 10:55:33 AM
 Method: GET, Path: /orders/all-orders, Date: 12/3/2023, Time: 10:55:49 AM
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:09:47
+Method: POST, Path: /auth/logout, Date: 03/12/2023, Time: 12:10:31
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:10:46
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:10:58
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:11:03
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:11:10
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:11:32
+Method: POST, Path: /auth/logout, Date: 03/12/2023, Time: 12:11:39
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:11:42
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:12:18
+Method: POST, Path: /auth/login, Date: 03/12/2023, Time: 12:12:26
