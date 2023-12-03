@@ -17,6 +17,7 @@ import {
   activeUser,
 } from '../services/userService'
 import { UsersInput } from '../types/userTypes'
+import { handleCastError } from '../util/handelMongoID'
 
 export const processRegisterUserController = async (
   req: Request,
@@ -72,12 +73,7 @@ export const banUser = async (req: Request, res: Response, next: NextFunction) =
       message: 'banned the user',
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 
@@ -89,12 +85,7 @@ export const unbanUser = async (req: Request, res: Response, next: NextFunction)
       message: 'unbanned the user',
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 
@@ -123,12 +114,7 @@ export const getSingleUser = async (req: Request, res: Response, next: NextFunct
       payload: user,
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 
@@ -144,12 +130,7 @@ export const updateSingleUser = async (req: Request, res: Response, next: NextFu
       payload: updatedProduct,
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 
@@ -164,12 +145,7 @@ export const deleteSingleUser = async (req: Request, res: Response, next: NextFu
       message: ' user is deleted ',
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {

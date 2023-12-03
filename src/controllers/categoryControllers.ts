@@ -13,11 +13,12 @@ import {
   updateCategoryBySlug,
 } from '../services/categoryService'
 import { CategoryInput } from '../types/categoryTypes'
+import { handleCastError } from '../util/handelMongoID'
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let page = Number(req.query.page) ||1
-    const limit = Number(req.query.limit)||3
+    let page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 3
     const search = req.query.search as string
     const { categories, totalPage, currentPage } = await findCategories(page, limit, search)
     res.status(200).json({
@@ -40,12 +41,7 @@ export const getSingleCategoryById = async (req: Request, res: Response, next: N
       payload: category,
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 
@@ -85,12 +81,7 @@ export const updateSingleCategoryId = async (req: Request, res: Response, next: 
       payload: updated,
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 
@@ -112,11 +103,7 @@ export const updateSingleCategoryBySulg = async (
   }
 }
 
-export const deleteSingleCategoryById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteSingleCategoryById = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params
     await deleteCategoryById(id)
@@ -124,12 +111,7 @@ export const deleteSingleCategoryById = async (
       massege: 'The category has been deleted successfully',
     })
   } catch (error) {
-    if (error instanceof mongoose.Error.CastError) {
-      const error = createHttpError(400, 'ID format is not valid')
-      next(error)
-    } else {
-      next(error)
-    }
+    handleCastError(error, next)
   }
 }
 

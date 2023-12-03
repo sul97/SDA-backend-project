@@ -1077,3 +1077,12 @@ Method: PUT, Path: /products/ipone, Date: 12/3/2023, Time: 2:58:05 AM
 Method: PUT, Path: /products/ipone, Date: 12/3/2023, Time: 2:59:18 AM
 Method: POST, Path: /categories, Date: 12/3/2023, Time: 3:00:57 AM
 Method: POST, Path: /products, Date: 12/3/2023, Time: 3:03:37 AM
+Method: POST, Path: /auth/login, Date: 12/3/2023, Time: 9:22:28 AM
+Method: POST, Path: /auth/logout, Date: 12/3/2023, Time: 9:23:00 AM
+Method: POST, Path: /auth/login, Date: 12/3/2023, Time: 9:37:03 AM
+Method: GET, Path: /users, Date: 12/3/2023, Time: 9:37:30 AM
+Method: PUT, Path: /users/ban/656b99f6d4ca98e663041ec7, Date: 12/3/2023, Time: 9:37:55 AM
+Method: GET, Path: /users, Date: 12/3/2023, Time: 9:38:00 AM
+Method: POST, Path: /auth/login, Date: 12/3/2023, Time: 10:55:28 AM
+Method: GET, Path: /users, Date: 12/3/2023, Time: 10:55:33 AM
+Method: GET, Path: /orders/all-orders, Date: 12/3/2023, Time: 10:55:49 AM

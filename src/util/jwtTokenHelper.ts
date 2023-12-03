@@ -12,8 +12,8 @@ export const generateJwtToken = (tokenPayload: object, secretKey: string, expire
       throw new Error('expiresIn must be provided')
     }
 
-    const token = jwt.sign(tokenPayload, secretKey, { expiresIn: expiresIn })
-    return token
+    return jwt.sign(tokenPayload, secretKey, { expiresIn: expiresIn })
+     
   } catch (error) {
     throw error
   }
@@ -28,8 +28,8 @@ export const verifyJwtToken = (tokenPayload: '', secretKey: string) => {
       throw new Error('secretKey must be must be non-empty String ')
     }
 
-    const token = jwt.verify(tokenPayload, secretKey)
-    return token
+  return jwt.verify(tokenPayload, secretKey)
+  
   } catch (error) {
     throw error
   }
