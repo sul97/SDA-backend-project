@@ -40,7 +40,6 @@ export const processRegisterUserController = async (
 
     res.status(200).json({
       message: 'Check your email to activate your account',
-      token,
     })
   } catch (error) {
     next(error)
@@ -49,7 +48,7 @@ export const processRegisterUserController = async (
 
 export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.body.token
+    const { token } = req.body
     const user = await activeUser(token)
 
     res.status(200).json({

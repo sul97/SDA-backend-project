@@ -3,7 +3,7 @@ import { dev } from ".";
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect(dev.db.url);
+    await mongoose.connect(String(dev.db.url))
     console.log("DB is connected");
   } catch (error) {
     console.log(error);
