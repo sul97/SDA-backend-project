@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import mongoose from 'mongoose'
-import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken'
+import { JsonWebTokenError, JwtPayload, TokenExpiredError } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
 
@@ -14,10 +14,20 @@ import {
   deleteUser,
   forgetPasswordAction,
   resstPasswordAction,
-  activeUser,
 } from '../services/userService'
 import { UsersInput } from '../types/userTypes'
 import { handleCastError } from '../util/handelMongoID'
+
+import { v2 as cloudinary } from 'cloudinary'
+import { dev } from '../config'
+import { verifyJwtToken } from '../util/jwtTokenHelper'
+import { User } from '../models/userSchema'
+
+cloudinary.config({
+  cloud_name: dev.cloud.cloudinaryName,
+  api_key: dev.cloud.cloudinaryAPIkey,
+  api_secret: dev.cloud.cloudinaryAPISecretkey,
+})
 
 export const processRegisterUserController = async (
   req: Request,
@@ -46,13 +56,40 @@ export const processRegisterUserController = async (
   }
 }
 
+// export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+//     const { token } = req.body
+//     const user = await activeUser(token)
+
+//     res.status(200).json({
+//       message: 'User registration successfully',
+//     })
+//   } catch (error) {
+//     if (error instanceof TokenExpiredError || error instanceof JsonWebTokenError) {
+//       const errorMessage = error instanceof TokenExpiredError ? 'expired token' : 'Invalid token'
+//       next(createHttpError(401, errorMessage))
+//     } else {
+//       next(error)
+//     }
+//   }
+// }
+
 export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { token } = req.body
-    const user = await activeUser(token)
+    const token = req.body.token
+    if (!token) {
+      throw createHttpError(400, 'please Provide a token')
+    }
+    const decoded = verifyJwtToken(token, String(dev.app.jwtUserActivationKey)) as JwtPayload
+    if (!decoded) {
+      throw createHttpError(401, 'Token is Invalid ')
+    }
 
+    const response = await cloudinary.uploader.upload(decoded.image, { folder: 'user_image' })
+    decoded.image = response.secure_url
+    await User.create(decoded)
     res.status(200).json({
-      message: 'User registration successfully',
+      message: 'User registration successful',
     })
   } catch (error) {
     if (error instanceof TokenExpiredError || error instanceof JsonWebTokenError) {

@@ -2,15 +2,13 @@ import bcrypt from 'bcrypt'
 
 import { JwtPayload } from 'jsonwebtoken'
 
-import {User} from '../models/userSchema'
+import { User } from '../models/userSchema'
 import { dev } from '../config'
 import { IUsers, UserType, UsersInput } from '../types/userTypes'
 
 import { handleSendEmail } from '../helper/sendEmail'
 import { createHttpError } from '../util/createHTTPError'
 import { generateJwtToken, verifyJwtToken } from '../util/jwtTokenHelper'
-
-
 
 export const processRegisterUserService = async (
   name: string,
@@ -55,20 +53,23 @@ export const processRegisterUserService = async (
   return token
 }
 
-export const activeUser = async (token: '') => {
-  if (!token) {
-    throw createHttpError(400, 'please Provide a token')
-  }
+// export const activeUser = async (token: '') => {
+//   if (!token) {
+//     throw createHttpError(400, 'please Provide a token')
+//   }
 
-  const decoded = verifyJwtToken(token, String(dev.app.jwtUserActivationKey))
+//   const decoded = verifyJwtToken(token, String(dev.app.jwtUserActivationKey)) as JwtPayload
 
-  if (!decoded) {
-    throw createHttpError(401, 'Token is Invalid ')
-  }
-  const useractive = await User.create(decoded)
+//   if (!decoded) {
+//     throw createHttpError(401, 'Token is Invalid ')
+//   }
 
-  return useractive
-}
+//   const response = await cloudinary.uploader.upload(decoded.image, { folder: 'user_image' })
+//    decoded.image = response.secure_url
+
+//   return await User.create(decoded)
+   
+// }
 
 export const findAllUsers = async (page = 1, limit = 3, search = '') => {
   const count = await User.countDocuments()
