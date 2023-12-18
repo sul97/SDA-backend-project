@@ -1,7 +1,7 @@
 import express, { Application } from 'express'
 import { config } from 'dotenv'
 import morgan from 'morgan'
-import cors from 'cors'
+// import cors from 'cors'
 import { rateLimit } from 'express-rate-limit'
 import cookieParser from 'cookie-parser'
 
@@ -18,22 +18,23 @@ import categoryRoutes from './routers/categoryRoutes'
 import orderRoutes from './routers/orderRoutes'
 import authRoutes from './routers/authRoutes'
 
-config()
+// config()
 
 const app: Application = express()
 const port: number = dev.app.port
 
-app.use(cors())
+const cors = require('cors')
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+}
+app.use(cors(corsOptions))
+// app.use(cors())
 app.use('/public', express.static('public'))
 app.use(cookieParser())
 app.use(myLogger)
 app.use(morgan('dev'))
-// const limiter = rateLimit({
-//   windowMs: 1 * 60 * 1000, // 15 minutes
-//   limit: 5, // Limit each IP to 5 requests per `window` (here, per 15 minutes).
-//   message: 'to many requst in 1 min',
-// })
-// app.use(limiter)
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
@@ -44,6 +45,7 @@ app.use('/orders', orderRoutes)
 app.use('/auth', authRoutes)
 
 app.use(errorHandler)
+
 
 app.use((req, res, next) => {
   const error = createHttpError(404, 'router not found')

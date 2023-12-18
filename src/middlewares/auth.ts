@@ -12,13 +12,14 @@ interface CustomRequest extends Request {
 export const isLoggedIn = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const accessToken = req.cookies.access_token
+    console.log(accessToken)
     if (!accessToken) {
-      const error = createHttpError(404, 'You are not logged in')
+      const error = createHttpError(401, 'You are not logged in')
       throw error
     }
     const decoded = (verifyJwtToken(accessToken, String(dev.app.jwtAccessKey))) as JwtPayload
     if (!decoded) {
-      const error = createHttpError(404, 'Invalid access token')
+      const error = createHttpError(401, 'Invalid access token')
       throw error
     }
     req.userId = decoded._id
