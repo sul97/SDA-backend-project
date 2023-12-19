@@ -1,7 +1,7 @@
 import express, { Application } from 'express'
 import { config } from 'dotenv'
 import morgan from 'morgan'
-// import cors from 'cors'
+import cors from 'cors'
 import { rateLimit } from 'express-rate-limit'
 import cookieParser from 'cookie-parser'
 
@@ -20,32 +20,39 @@ import authRoutes from './routers/authRoutes'
 
 // config()
 
-const app: Application = express()
+const app = express()
 const port: number = dev.app.port
 
-const cors = require('cors')
 
-const corsOptions = {
+const corsConfig = {
   origin: 'http://localhost:3000',
   credentials: true,
 }
-app.use(cors(corsOptions))
+
+app.use(cors(corsConfig))
+app.options('*', cors(corsConfig))
+// const cors = require('cors')
+
+// const corsOptions = {
+//   origin: 'http://localhost:3000',
+//   credentials: true,
+// }
+// app.use(cors(corsOptions))
 // app.use(cors())
 app.use('/public', express.static('public'))
 app.use(cookieParser())
-app.use(myLogger)
+// app.use(myLogger)
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+app.use('/auth', authRoutes)
 app.use('/products', productRoutes)
 app.use('/categories', categoryRoutes)
 app.use('/users', userRoutes)
 app.use('/orders', orderRoutes)
-app.use('/auth', authRoutes)
 
 app.use(errorHandler)
-
 
 app.use((req, res, next) => {
   const error = createHttpError(404, 'router not found')

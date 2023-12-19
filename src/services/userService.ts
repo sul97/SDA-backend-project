@@ -168,7 +168,7 @@ export const forgetPasswordAction = async (email: string): Promise<string> => {
     email: email,
     subjeect: 'Rest Password Email',
     html: `<h1>Hello ${user.name}</h1>
-      <p>Please Click here to  : <a href="http://localhost:5050/users/rest-password/${token}"> rest  your password</a></p>`,
+      <p>Please Click here to  : <a href="http://localhost:3000/users/rest-password/${token}"> rest  your password</a></p>`,
   }
   //send email
   await handleSendEmail(emailData)
