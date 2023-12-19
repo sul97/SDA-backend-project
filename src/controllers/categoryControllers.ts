@@ -14,11 +14,13 @@ import {
 } from '../services/categoryService'
 import { CategoryInput } from '../types/categoryTypes'
 import { handleCastError } from '../util/handelMongoID'
+import slugify from 'slugify'
+import { Category } from '../models/categorySchema'
 
 export const getAllCategories = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || 3
+    const limit = Number(req.query.limit) || 10
     const search = req.query.search as string
     const { categories, totalPage, currentPage } = await findCategories(page, limit, search)
     res.status(200).json({
@@ -59,17 +61,44 @@ export const getSingleCategoryBySlug = async (req: Request, res: Response, next:
   }
 }
 
+// export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+//     const { name } = req.body
+//     await createNewCategory(name)
+//     res.status(201).json({
+//       message: 'The category has been created successfully',
+//     })
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name } = req.body
-    await createNewCategory(name)
+    const categoryExist = await Category.exists({ name: name })
+
+    if (categoryExist) {
+      const error = createHttpError(409, 'Category already exists with this name')
+      throw error
+    }
+
+    const newCategory = new Category({
+      name,
+      slug: slugify(name),
+    })
+
+    const category = await newCategory.save()
+
     res.status(201).json({
       message: 'The category has been created successfully',
+      payload: category,
     })
   } catch (error) {
     next(error)
   }
 }
+
 
 export const updateSingleCategoryId = async (req: Request, res: Response, next: NextFunction) => {
   try {

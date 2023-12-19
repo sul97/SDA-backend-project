@@ -27,7 +27,8 @@ export const handleLogin = async (req: Request, res: Response, next: NextFunctio
     res.cookie('access_token', accessToken, {
       maxAge: 15 * 60 * 1000, // 15 mintues
       httpOnly: true, // prevent from store in browser
-      sameSite: 'none', // can be different port
+      sameSite: 'none',// can be different port
+      secure: true, //
     })
     res.status(200).send({
       message: 'user is logged in',
