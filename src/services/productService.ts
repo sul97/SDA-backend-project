@@ -22,7 +22,7 @@ export const findAllProducts = async (page = 1, limit = 3, search = '') => {
     .skip(skip)
     .limit(limit)
     .sort({ price: 1 })
-  return { products, totalPage, currentPage: page }
+  return { products,count, totalPage, currentPage: page }
 }
 
 export const findProductsBySlug = async (slug: string): Promise<ProductsInput> => {

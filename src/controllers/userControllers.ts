@@ -1,19 +1,17 @@
 import { Request, Response, NextFunction } from 'express'
-import mongoose from 'mongoose'
 import { JsonWebTokenError, JwtPayload, TokenExpiredError } from 'jsonwebtoken'
 
 import { createHttpError } from '../util/createHTTPError'
 
-import { deleteImage } from '../helper/deleteImageHelper'
 import {
   processRegisterUserService,
   findAllUsers,
   findUserById,
   updateBanStatusById,
   updateUser,
-  deleteUser,
   forgetPasswordAction,
   resstPasswordAction,
+  deleteUser,
 } from '../services/userService'
 import { UsersInput } from '../types/userTypes'
 import { handleCastError } from '../util/handelMongoID'
@@ -22,6 +20,11 @@ import { v2 as cloudinary } from 'cloudinary'
 import { dev } from '../config'
 import { verifyJwtToken } from '../util/jwtTokenHelper'
 import { User } from '../models/userSchema'
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+  valueWithoutExtension,
+} from '../helper/cloudinaryHelper'
 
 cloudinary.config({
   cloud_name: dev.cloud.cloudinaryName,
@@ -169,13 +172,16 @@ export const updateSingleUser = async (req: Request, res: Response, next: NextFu
     handleCastError(error, next)
   }
 }
-
 export const deleteSingleUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await deleteUser(req.params.id)
 
-    if (user && user.image) {
-      await deleteImage(user.image)
+    // if (user && user.image) {
+    //   await deleteImage(user.image)
+    // }
+     if (user && user.image) {
+      const publicId = await valueWithoutExtension(user.image)
+      await deleteFromCloudinary(`user_image/${publicId}`)
     }
     res.status(200).send({
       message: ' user is deleted ',
@@ -184,6 +190,7 @@ export const deleteSingleUser = async (req: Request, res: Response, next: NextFu
     handleCastError(error, next)
   }
 }
+
 export const forgetPassword = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email } = req.body

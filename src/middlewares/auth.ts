@@ -12,7 +12,6 @@ interface CustomRequest extends Request {
 export const isLoggedIn = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
     const accessToken = req.cookies.access_token
-    console.log(accessToken)
     if (!accessToken) {
       const error = createHttpError(401, 'You are not logged in')
       throw error

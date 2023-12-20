@@ -15,38 +15,26 @@ import { isAdmin, isLoggedIn } from '../middlewares/auth'
 
 const productRoutes = Router()
 
-// productRoutes.get('/', getAllProducts)
-// productRoutes.get('/:slug', getSingleProduct)
-// productRoutes.post(
-//   '/',
-//   isLoggedIn,
-//   isAdmin,
-//   uploadProductimage.single('image'),
-//   createProductValidation,
-//   runValidation,
-//   createSingleProduct
-// )
-// productRoutes.put(
-//   '/:slug',
-//   isLoggedIn,
-//   isAdmin,
-//   uploadProductimage.single('image'),
-//   updateProductValidation,
-//   runValidation,
-//   updateSingleProduct
-// )
-// productRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleProduct)
 productRoutes.get('/', getAllProducts)
 productRoutes.get('/:slug', getSingleProduct)
 productRoutes.post(
   '/',
+  isLoggedIn,
+  isAdmin,
   uploadProductimage.single('image'),
+  createProductValidation,
+  runValidation,
   createSingleProduct
 )
 productRoutes.put(
   '/:slug',
+  isLoggedIn,
+  isAdmin,
   uploadProductimage.single('image'),
+  updateProductValidation,
+  runValidation,
   updateSingleProduct
 )
-productRoutes.delete('/:slug', deleteSingleProduct)
+productRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleProduct)
+
 export default productRoutes

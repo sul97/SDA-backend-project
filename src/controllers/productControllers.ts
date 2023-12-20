@@ -13,15 +13,18 @@ import { ProductsInput } from '../types/productTypes'
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || 3
+    const limit = Number(req.query.limit) || 10
     const search = req.query.search as string
-    const { products, totalPage, currentPage } = await findAllProducts(page, limit, search)
+    const { products, count, totalPage, currentPage } = await findAllProducts(page, limit, search)
     res.send({
       message: 'return all products',
       payload: {
         products,
-        totalPage,
-        currentPage,
+        pagination: {
+          totalProducts: count,
+          totalPage,
+          currentPage,
+        },
       },
     })
   } catch (error) {
