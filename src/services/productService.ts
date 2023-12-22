@@ -6,9 +6,9 @@ import { ProductsInput, ProductsType } from '../types/productTypes'
 
 import {
   deleteFromCloudinary,
+  uploadToCloudinary,
   valueWithoutExtension,
 } from '../helper/cloudinaryHelper'
-
 
 export const findAllProducts = async (page = 1, limit = 3, search = '') => {
   const count = await Product.countDocuments()
@@ -69,10 +69,11 @@ export const updateProduct = async (
     updatedProductData.slug = slugify(updatedProductData.title)
   }
 
-  if (image) {
-    updatedProductData.image = image
-  }
+   if (image) {
+     updatedProductData.image = image
+   }
 
+console.log(image)
   const updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, {
     new: true,
   })

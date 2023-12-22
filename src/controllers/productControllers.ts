@@ -55,19 +55,14 @@ export const getSingleProduct = async (req: Request, res: Response, next: NextFu
   }
 }
 
-
 export const createSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // const file = req.file
-    // const imge = file?.path
     const productData = req.body
-
-    //  const file = req.file
-     let image = req.file && req.file?.path
-     if (image) {
-       const response = await uploadToCloudinary(image,'product_image')
-       image = response
-     }
+    let image = req.file && req.file?.path
+    if (image) {
+      const response = await uploadToCloudinary(image, 'product_image')
+      image = response
+    }
     const newProduct = await createProduct(productData, image)
     res.status(201).send({
       message: ' The Product has been created successfully',
@@ -82,10 +77,13 @@ export const updateSingleProduct = async (req: Request, res: Response, next: Nex
   try {
     const { slug } = req.params
     const updateProductData: ProductsInput = req.body
-    const file = req.file
-    const imge = file?.path
+    let image = req.file && req.file?.path
+    if (image) {
+      const response = await uploadToCloudinary(image, 'product_image')
+      image = response
+    }
 
-    const updatedProduct = await updateProduct(slug, updateProductData, imge)
+    const updatedProduct = await updateProduct(slug, updateProductData, image)
     res.status(200).send({
       message: 'The Product has been updated successfully',
       payload: updatedProduct,
