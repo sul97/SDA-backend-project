@@ -1,5 +1,13 @@
-import { cloudinary } from '../config/cloudinary'
 import { createHttpError } from '../util/createHTTPError'
+
+import { v2 as cloudinary } from 'cloudinary'
+import { dev } from '../config'
+
+cloudinary.config({
+  cloud_name: dev.cloud.cloudinaryName,
+  api_key: dev.cloud.cloudinaryAPIkey,
+  api_secret: dev.cloud.cloudinaryAPISecretkey,
+})
 
 export const uploadToCloudinary = async (image: string, folderName: string): Promise<string> => {
   const response = await cloudinary.uploader.upload(image, {

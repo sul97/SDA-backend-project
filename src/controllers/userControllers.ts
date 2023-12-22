@@ -22,9 +22,9 @@ import { verifyJwtToken } from '../util/jwtTokenHelper'
 import { User } from '../models/userSchema'
 import {
   deleteFromCloudinary,
-  uploadToCloudinary,
   valueWithoutExtension,
 } from '../helper/cloudinaryHelper'
+import mongoose from 'mongoose'
 
 cloudinary.config({
   cloud_name: dev.cloud.cloudinaryName,
@@ -58,24 +58,6 @@ export const processRegisterUserController = async (
     next(error)
   }
 }
-
-// export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const { token } = req.body
-//     const user = await activeUser(token)
-
-//     res.status(200).json({
-//       message: 'User registration successfully',
-//     })
-//   } catch (error) {
-//     if (error instanceof TokenExpiredError || error instanceof JsonWebTokenError) {
-//       const errorMessage = error instanceof TokenExpiredError ? 'expired token' : 'Invalid token'
-//       next(createHttpError(401, errorMessage))
-//     } else {
-//       next(error)
-//     }
-//   }
-// }
 
 export const activateUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -172,22 +154,19 @@ export const updateSingleUser = async (req: Request, res: Response, next: NextFu
     handleCastError(error, next)
   }
 }
+
+
 export const deleteSingleUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await deleteUser(req.params.id)
-
-    // if (user && user.image) {
-    //   await deleteImage(user.image)
-    // }
-     if (user && user.image) {
-      const publicId = await valueWithoutExtension(user.image)
-      await deleteFromCloudinary(`user_image/${publicId}`)
-    }
-    res.status(200).send({
-      message: ' user is deleted ',
-    })
+    await deleteUser(req.params.id)
+    res.send({ message: 'The user is deleted successfully' })
   } catch (error) {
-    handleCastError(error, next)
+    if (error instanceof mongoose.Error.CastError) {
+      const error = createHttpError(400, 'User Id format is not valid')
+      next(error)
+    } else {
+      next(error)
+    }
   }
 }
 

@@ -4,6 +4,12 @@ import { Product } from '../models/productSchema'
 import { createHttpError } from '../util/createHTTPError'
 import { ProductsInput, ProductsType } from '../types/productTypes'
 
+import {
+  deleteFromCloudinary,
+  valueWithoutExtension,
+} from '../helper/cloudinaryHelper'
+
+
 export const findAllProducts = async (page = 1, limit = 3, search = '') => {
   const count = await Product.countDocuments()
   const totalPage = Math.ceil(count / limit)
@@ -22,7 +28,7 @@ export const findAllProducts = async (page = 1, limit = 3, search = '') => {
     .skip(skip)
     .limit(limit)
     .sort({ price: 1 })
-  return { products,count, totalPage, currentPage: page }
+  return { products, count, totalPage, currentPage: page }
 }
 
 export const findProductsBySlug = async (slug: string): Promise<ProductsInput> => {
@@ -33,7 +39,6 @@ export const findProductsBySlug = async (slug: string): Promise<ProductsInput> =
   }
   return product
 }
-
 export const createProduct = async (product: ProductsInput, image: string | undefined) => {
   const { title } = product
   const productExist = await Product.exists({ title: title })
@@ -51,10 +56,10 @@ export const createProduct = async (product: ProductsInput, image: string | unde
     sold: product.sold,
     shipping: product.shipping,
   })
+
   await newProduct.save()
   return newProduct
 }
-
 export const updateProduct = async (
   slug: string,
   updatedProductData: ProductsInput,
@@ -79,11 +84,14 @@ export const updateProduct = async (
   return updatedproduct
 }
 
-export const deleteProduct = async (slug: string): Promise<ProductsInput> => {
-  const product = await Product.findOneAndDelete({ slug: slug })
-  if (!product) {
-    const error = createHttpError(404, 'product not found')
-    throw error
+export const deleteProduct = async (slug: string) => {
+  const productExist = await Product.findOne({ slug: slug })
+  if (!productExist) {
+    throw createHttpError(404, 'Product not found')
   }
-  return product
+  if (productExist && productExist.image) {
+    const publicId = await valueWithoutExtension(productExist.image)
+    await deleteFromCloudinary(`product_image/${publicId}`)
+  }
+  await Product.findOneAndDelete({ slug: slug })
 }

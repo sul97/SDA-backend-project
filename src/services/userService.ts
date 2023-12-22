@@ -9,6 +9,7 @@ import { IUsers, UserType, UsersInput } from '../types/userTypes'
 import { handleSendEmail } from '../helper/sendEmail'
 import { createHttpError } from '../util/createHTTPError'
 import { generateJwtToken, verifyJwtToken } from '../util/jwtTokenHelper'
+import { deleteFromCloudinary, valueWithoutExtension } from '../helper/cloudinaryHelper'
 
 export const processRegisterUserService = async (
   name: string,
@@ -147,13 +148,19 @@ export const updateBanStatusById = async (id: string, isBanned: boolean) => {
   }
 }
 
-export const deleteUser = async (id: string): Promise<UsersInput> => {
-  const user = await User.findByIdAndDelete(id)
-  if (!user) {
-    const error = createHttpError(404, 'User not found')
-    throw error
+export const deleteUser = async (id: string) => {
+  // first check if the user exist or not
+  const userExist = await User.findOne({ _id: id })
+  if (!userExist) {
+    throw createHttpError(404, 'User not found')
   }
-  return user
+  // if the user has image then delete image from cloudinary
+  if (userExist && userExist.image) {
+    const publicId = await valueWithoutExtension(userExist.image)
+    await deleteFromCloudinary(`user_image/${publicId}`)
+  }
+  // now delete the user from cloudinary
+  await User.findByIdAndDelete(id)
 }
 
 export const forgetPasswordAction = async (email: string): Promise<string> => {

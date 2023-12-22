@@ -8,7 +8,18 @@ import {
   updateProduct,
 } from '../services/productService'
 import { deleteImage } from '../helper/deleteImageHelper'
-import { ProductsInput } from '../types/productTypes'
+import { ProductsInput, ProductsType } from '../types/productTypes'
+import { uploadToCloudinary } from '../helper/cloudinaryHelper'
+import { Product } from '../models/productSchema'
+import slugify from 'slugify'
+import { v2 as cloudinary } from 'cloudinary'
+import { dev } from '../config'
+
+cloudinary.config({
+  cloud_name: dev.cloud.cloudinaryName,
+  api_key: dev.cloud.cloudinaryAPIkey,
+  api_secret: dev.cloud.cloudinaryAPISecretkey,
+})
 
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -44,12 +55,20 @@ export const getSingleProduct = async (req: Request, res: Response, next: NextFu
   }
 }
 
+
 export const createSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const file = req.file
-    const imge = file?.path
+    // const file = req.file
+    // const imge = file?.path
     const productData = req.body
-    const newProduct = await createProduct(productData, imge)
+
+    //  const file = req.file
+     let image = req.file && req.file?.path
+     if (image) {
+       const response = await uploadToCloudinary(image,'product_image')
+       image = response
+     }
+    const newProduct = await createProduct(productData, image)
     res.status(201).send({
       message: ' The Product has been created successfully',
       payload: newProduct,
@@ -78,13 +97,9 @@ export const updateSingleProduct = async (req: Request, res: Response, next: Nex
 
 export const deleteSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const product = await deleteProduct(req.params.slug)
-    if (product && product.image) {
-      await deleteImage(product.image)
-    }
+    await deleteProduct(req.params.slug)
     res.send({
-      message: ' The product has been deleted successfully ',
-      payload: product,
+      message: ' The product is deleted successfully ',
     })
   } catch (error) {
     next(error)
