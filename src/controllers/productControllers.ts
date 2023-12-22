@@ -9,7 +9,11 @@ import {
 } from '../services/productService'
 import { deleteImage } from '../helper/deleteImageHelper'
 import { ProductsInput, ProductsType } from '../types/productTypes'
-import { uploadToCloudinary } from '../helper/cloudinaryHelper'
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+  valueWithoutExtension,
+} from '../helper/cloudinaryHelper'
 import { Product } from '../models/productSchema'
 import slugify from 'slugify'
 import { v2 as cloudinary } from 'cloudinary'
@@ -77,13 +81,18 @@ export const updateSingleProduct = async (req: Request, res: Response, next: Nex
   try {
     const { slug } = req.params
     const updateProductData: ProductsInput = req.body
-    let image = req.file && req.file?.path
-    if (image) {
-      const response = await uploadToCloudinary(image, 'product_image')
-      image = response
-    }
 
+      let image = req.file && req.file?.path
+      if (image) {
+        const response = await uploadToCloudinary(image, 'product_image')
+        image = response
+      }
     const updatedProduct = await updateProduct(slug, updateProductData, image)
+    console.log(updatedProduct)
+    // if (updateProductData.image) {
+    //   const publicId = await valueWithoutExtension(updateProductData.image)
+    //   await deleteFromCloudinary(`product_image/${publicId}`)
+    // }
     res.status(200).send({
       message: 'The Product has been updated successfully',
       payload: updatedProduct,
@@ -96,7 +105,7 @@ export const updateSingleProduct = async (req: Request, res: Response, next: Nex
 export const deleteSingleProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await deleteProduct(req.params.slug)
-    res.send({
+    res.status(200).send({
       message: ' The product is deleted successfully ',
     })
   } catch (error) {

@@ -23,9 +23,9 @@ export const handleLogin = async (req: Request, res: Response, next: NextFunctio
       const error = createHttpError(404, 'You are banned. Please contact the authority')
       throw error
     }
-    const accessToken = generateJwtToken({ _id: user._id }, String(dev.app.jwtAccessKey), '7m')
+    const accessToken = generateJwtToken({ _id: user._id }, String(dev.app.jwtAccessKey), '30m')
     res.cookie('access_token', accessToken, {
-      maxAge: 15 * 60 * 1000, // 15 mintues
+      maxAge: 30 * 60 * 1000, // 15 mintues
       httpOnly: true, // prevent from store in browser
       sameSite: 'none',// can be different port
       secure: true, //

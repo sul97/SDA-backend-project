@@ -69,11 +69,18 @@ export const updateProduct = async (
     updatedProductData.slug = slugify(updatedProductData.title)
   }
 
-   if (image) {
+  if (image) {
      updatedProductData.image = image
-   }
 
-console.log(image)
+    // const response = await uploadToCloudinary(image, 'product_image')
+    // updatedProductData.image = response
+    // console.log(updatedProductData.image)
+   
+  }
+ console.log(updatedProductData.image)
+ 
+  console.log(image)
+
   const updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, {
     new: true,
   })
@@ -82,6 +89,7 @@ console.log(image)
     const error = createHttpError(404, 'Product not found')
     throw error
   }
+
   return updatedproduct
 }
 
