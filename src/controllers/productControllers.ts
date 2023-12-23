@@ -28,7 +28,7 @@ cloudinary.config({
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1
-    const limit = Number(req.query.limit) || 10
+    const limit = Number(req.query.limit) || 4
     const search = req.query.search as string
     const { products, count, totalPage, currentPage } = await findAllProducts(page, limit, search)
     res.send({

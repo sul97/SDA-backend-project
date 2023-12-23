@@ -10,14 +10,9 @@ import { isAdmin, isLoggedIn } from '../middlewares/auth'
 
 const orderRoutes = Router()
 
-// orderRoutes.post('/process-payment', isLoggedIn, handleProcessPayment)
-// orderRoutes.get('/:id([0-9a-fA-F]{24})', isLoggedIn, getAllOrdersForUser)
-// orderRoutes.get('/all-orders', isLoggedIn, isAdmin, getAllOrdersForAdmin)
-// orderRoutes.delete('/:id', deleteSingleOrderById)
-
-orderRoutes.post('/process-payment', handleProcessPayment)
-orderRoutes.get('/:id([0-9a-fA-F]{24})', getAllOrdersForUser)
-orderRoutes.get('/all-orders', getAllOrdersForAdmin)
+orderRoutes.post('/process-payment', isLoggedIn, handleProcessPayment)
+orderRoutes.get('/:id([0-9a-fA-F]{24})', isLoggedIn, getAllOrdersForUser)
+orderRoutes.get('/all-orders', isLoggedIn, isAdmin, getAllOrdersForAdmin)
 orderRoutes.delete('/:id', deleteSingleOrderById)
 
 export default orderRoutes
