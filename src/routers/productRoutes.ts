@@ -7,6 +7,8 @@ import {
   createSingleProduct,
   updateSingleProduct,
   updateSingleProductByslug,
+  generateBraintreeToken,
+  handleBraintreePayment,
 } from '../controllers/productControllers'
 
 import { createProductValidation, updateProductValidation } from '../validation/productValidation'
@@ -37,5 +39,7 @@ productRoutes.put(
   updateSingleProductByslug
 )
 productRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleProduct)
+productRoutes.get('/braintree/token',isLoggedIn, generateBraintreeToken)
+productRoutes.post('/braintree/payment', isLoggedIn, handleBraintreePayment)
 
 export default productRoutes

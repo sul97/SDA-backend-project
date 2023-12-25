@@ -19,6 +19,15 @@ import slugify from 'slugify'
 import { v2 as cloudinary } from 'cloudinary'
 import { dev } from '../config'
 import { createHttpError } from '../util/createHTTPError'
+import { Order } from '../models/orderSchema'
+const braintree = require('braintree')
+
+const gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: dev.app.braintreeMerchantId,
+  publicKey: dev.app.braintreePublickey,
+  privateKey: dev.app.braintreePrivatekey,
+})
 
 cloudinary.config({
   cloud_name: dev.cloud.cloudinaryName,
@@ -166,6 +175,52 @@ export const deleteSingleProduct = async (req: Request, res: Response, next: Nex
     await deleteProduct(req.params.slug)
     res.status(200).send({
       message: ' The product is deleted successfully ',
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+export const generateBraintreeToken = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const braintreeclientToken = await gateway.clientToken.generate({})
+    if (!braintreeclientToken) {
+      throw createHttpError(404, 'braintree token not generated')
+    }
+    res.status(200).send(braintreeclientToken)
+  } catch (error) {
+    next(error)
+  }
+}
+interface CustomRequest extends Request {
+  userId?: string
+}
+export const handleBraintreePayment = async (req: CustomRequest, res: Response, next: NextFunction) => {
+  try {
+    const { nonce, cartItems, amount } = req.body
+
+    const result = await gateway.transaction.sale({
+      amount: amount,
+      paymentMethodNonce: nonce,
+      options: {
+        submitForSettlement: true,
+      },
+    })
+
+    if (result.success) {
+      console.log('Transaction ID: ' + result.transaction.id)
+      const order = new Order({
+        products: cartItems,
+        payment: result,
+        user: req.userId,
+      })
+      await order.save()
+      return order
+    } else {
+      console.error(result.message)
+    }
+
+    res.status(201).send({
+      message: 'order created successfully',
     })
   } catch (error) {
     next(error)
