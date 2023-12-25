@@ -65,24 +65,22 @@ export const updateProduct = async (
   updatedProductData: ProductsInput,
   image: string | undefined
 ): Promise<ProductsInput> => {
+     
+// const updates: Record<string, unknown> = {}
   if (updatedProductData.title) {
     updatedProductData.slug = slugify(updatedProductData.title)
   }
 
   if (image) {
-     updatedProductData.image = image
-
-    // const response = await uploadToCloudinary(image, 'product_image')
-    // updatedProductData.image = response
-    // console.log(updatedProductData.image)
-   
+    updatedProductData.image = image
   }
- console.log(updatedProductData.image)
- 
+  console.log(updatedProductData.image)
+
   console.log(image)
 
   const updatedproduct = await Product.findOneAndUpdate({ slug: slug }, updatedProductData, {
     new: true,
+    runValidators: true,
   })
 
   if (!updatedproduct) {

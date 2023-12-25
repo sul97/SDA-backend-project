@@ -6,6 +6,7 @@ import {
   deleteSingleProduct,
   createSingleProduct,
   updateSingleProduct,
+  updateSingleProductByslug,
 } from '../controllers/productControllers'
 
 import { createProductValidation, updateProductValidation } from '../validation/productValidation'
@@ -33,7 +34,7 @@ productRoutes.put(
   uploadProductimage.single('image'),
   updateProductValidation,
   runValidation,
-  updateSingleProduct
+  updateSingleProductByslug
 )
 productRoutes.delete('/:slug', isLoggedIn, isAdmin, deleteSingleProduct)
 

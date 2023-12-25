@@ -12,6 +12,7 @@ import {
   forgetPasswordAction,
   resstPasswordAction,
   deleteUser,
+  updateRoleeById,
 } from '../services/userService'
 import { UsersInput } from '../types/userTypes'
 import { handleCastError } from '../util/handelMongoID'
@@ -109,7 +110,17 @@ export const unbanUser = async (req: Request, res: Response, next: NextFunction)
     handleCastError(error, next)
   }
 }
+export const updateRole = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await updateRoleeById(req.params.id)
 
+    res.status(200).send({
+      message: 'updated the user role status',
+    })
+  } catch (error) {
+    handleCastError(error, next)
+  }
+}
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     let page = Number(req.query.page) || 1

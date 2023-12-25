@@ -69,7 +69,7 @@ export const processRegisterUserService = async (
 //    decoded.image = response.secure_url
 
 //   return await User.create(decoded)
-   
+
 // }
 
 export const findAllUsers = async (page = 1, limit = 3, search = '') => {
@@ -140,6 +140,15 @@ export const updateUser = async (
 
 export const updateBanStatusById = async (id: string, isBanned: boolean) => {
   const user = await User.findByIdAndUpdate(id, { isBanned }, { new: true })
+
+  if (!user) {
+    //create http error ,status 404
+    const error = createHttpError(404, 'User not found')
+    throw error
+  }
+}
+export const updateRoleeById = async (id: string) => {
+  const user = await User.findByIdAndUpdate(id, { isAdmin: true })
 
   if (!user) {
     //create http error ,status 404

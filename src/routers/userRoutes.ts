@@ -11,6 +11,7 @@ import {
   unbanUser,
   forgetPassword,
   resetPassword,
+  updateRole,
 } from '../controllers/userControllers'
 import { uploadUsersimage } from '../middlewares/uploadFile'
 import { userRegistrationValidator } from '../validation/userValidation'
@@ -30,6 +31,7 @@ userRoutes.post(
 userRoutes.post('/activate', isLoggedOut, activateUser)
 userRoutes.put('/ban/:id', isLoggedIn, isAdmin, banUser)
 userRoutes.put('/unban/:id', isLoggedIn, isAdmin, unbanUser)
+userRoutes.put('/role/:id', isLoggedIn, isAdmin, updateRole)
 userRoutes.get('/', isLoggedIn, isAdmin, getAllUsers)
 userRoutes.get('/:id', isLoggedIn, getSingleUser)
 userRoutes.put('/:id', uploadUsersimage.single('image'), updateSingleUser)
