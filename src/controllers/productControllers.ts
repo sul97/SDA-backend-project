@@ -194,7 +194,11 @@ export const generateBraintreeToken = async (req: Request, res: Response, next: 
 interface CustomRequest extends Request {
   userId?: string
 }
-export const handleBraintreePayment = async (req: CustomRequest, res: Response, next: NextFunction) => {
+export const handleBraintreePayment = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { nonce, cartItems, amount, quantity } = req.body
 
@@ -208,14 +212,22 @@ export const handleBraintreePayment = async (req: CustomRequest, res: Response, 
 
     if (result.success) {
       console.log('Transaction ID: ' + result.transaction.id)
-      
+
       const order = new Order({
         products: cartItems,
         payment: result,
         user: req.userId,
       })
-      console.log(order)
       await order.save()
+      const bulkOps = cartItems.map((product: ProductsType) => {
+        return {
+          updateOne: {
+            filter: { _id: product._id },
+            update: { $inc: { sold: +1 } },
+          },
+        }
+      })
+      await Product.bulkWrite(bulkOps,{})
     } else {
       console.error(result.message)
     }
