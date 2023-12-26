@@ -12,7 +12,7 @@ export const findAllOrders = async (page = 1, limit = 3, userId: string) => {
 
   const skip = (page - 1) * limit
   const orders = await Order.find({ user: userId })
-    .populate('products','title')
+    .populate('products', 'title price')
     .populate('user', 'name email')
     .skip(skip)
     .limit(limit)
@@ -33,7 +33,7 @@ export const findAllOrdersForAdmin = async (page = 1, limit = 3) => {
 
   const skip = (page - 1) * limit
   const orders = await Order.find()
-    .populate('products.product', 'title price')
+    .populate('products', 'title price')
     .populate('user', 'name email')
     .skip(skip)
     .limit(limit)
