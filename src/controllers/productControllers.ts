@@ -196,7 +196,7 @@ interface CustomRequest extends Request {
 }
 export const handleBraintreePayment = async (req: CustomRequest, res: Response, next: NextFunction) => {
   try {
-    const { nonce, cartItems, amount } = req.body
+    const { nonce, cartItems, amount, quantity } = req.body
 
     const result = await gateway.transaction.sale({
       amount: amount,
@@ -208,19 +208,21 @@ export const handleBraintreePayment = async (req: CustomRequest, res: Response, 
 
     if (result.success) {
       console.log('Transaction ID: ' + result.transaction.id)
+      
       const order = new Order({
         products: cartItems,
         payment: result,
         user: req.userId,
       })
+      console.log(order)
       await order.save()
-      return order
     } else {
       console.error(result.message)
     }
 
     res.status(201).send({
       message: 'order created successfully',
+      // payload: order,
     })
   } catch (error) {
     next(error)
